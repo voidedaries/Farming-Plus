@@ -2,7 +2,7 @@ package net.voidedaries.farmingplus.util;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 
-@SuppressWarnings("UnstableApiUsage")
+@SuppressWarnings({"UnstableApiUsage", "unused"})
 public class FluidStack {
     public FluidVariant fluidVariant;
     public long amount;

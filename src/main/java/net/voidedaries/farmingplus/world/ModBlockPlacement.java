@@ -5,6 +5,7 @@ import net.minecraft.world.gen.placementmodifier.*;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class ModBlockPlacement {
 
 

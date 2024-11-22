@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 public class DrinkableBottleItem extends Item {
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final FlowableFluid fluid;
 
     public DrinkableBottleItem(FlowableFluid fluid, Settings settings) {
@@ -24,6 +25,8 @@ public class DrinkableBottleItem extends Item {
         ItemStack itemStack = player.getStackInHand(hand);
         player.getItemCooldownManager().set(this, 20); // Optional: Add a cooldown
 
+        // If needed add functionality here
+        //noinspection StatementWithEmptyBody
         if (!world.isClient) {
             // Optionally give status effects or custom behavior here
         }

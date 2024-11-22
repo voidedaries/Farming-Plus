@@ -15,8 +15,6 @@ import net.voidedaries.farmingplus.effect.ModEffects;
 import net.voidedaries.farmingplus.item.ModItems;
 import net.voidedaries.farmingplus.mixininterface.StatusSavingPlayer;
 
-import java.util.Random;
-
 public class WineItem extends Item {
     public WineItem(Settings settings) {
         super(settings);

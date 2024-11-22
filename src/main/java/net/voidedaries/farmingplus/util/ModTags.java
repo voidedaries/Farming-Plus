@@ -11,6 +11,7 @@ import net.voidedaries.farmingplus.FarmingPlus;
 public class ModTags {
     public static class Blocks {
 
+        @SuppressWarnings("unused")
         private static TagKey<Block> createTag(String name) {
             return TagKey.of(RegistryKeys.BLOCK, new Identifier(FarmingPlus.MOD_ID, name));
         }
@@ -25,14 +26,17 @@ public class ModTags {
             return TagKey.of(RegistryKeys.ITEM, new Identifier(FarmingPlus.MOD_ID, name));
 
         }
+        @SuppressWarnings("unused")
         private static TagKey<Item> createCommonTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", name)); // Common tag
         }
     }
 
+    @SuppressWarnings("unused")
     public static class Fluids {
         public static final TagKey<Fluid> GRAPE_FLUIDS = createTag("grape_fluids");
 
+        @SuppressWarnings("SameParameterValue")
         private static TagKey<Fluid> createTag(String name) {
             return TagKey.of(RegistryKeys.FLUID, new Identifier(FarmingPlus.MOD_ID, name));
         }
