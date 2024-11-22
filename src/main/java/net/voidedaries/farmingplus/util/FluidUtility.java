@@ -5,6 +5,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.voidedaries.farmingplus.fluid.ModFluids;
+import net.voidedaries.farmingplus.mixin.BucketItemAccessor;
 
 import java.util.Optional;
 
@@ -69,11 +70,11 @@ public class FluidUtility {
 
     //Returns the correct wine variant for a given bucket item
     public static FluidVariant getFermentedWineFluidFromBucket(FluidVariant grapeFluid) {
-        if (grapeFluid.getFluid().equals(ModFluids.RED_GRAPE_FLUID_BUCKET)) {
+        if (grapeFluid.getFluid().equals(((BucketItemAccessor) ModFluids.RED_GRAPE_FLUID_BUCKET).getFluid())) {
             return FluidVariant.of(ModFluids.STILL_RED_FERMENTED_WINE);
-        } else if (grapeFluid.getFluid().equals(ModFluids.WHITE_GRAPE_FLUID_BUCKET)) {
+        } else if (grapeFluid.getFluid().equals(((BucketItemAccessor) ModFluids.RED_GRAPE_FLUID_BUCKET).getFluid())) {
             return FluidVariant.of(ModFluids.STILL_WHITE_FERMENTED_WINE);
-        } else if (grapeFluid.getFluid().equals(ModFluids.BLUE_GRAPE_FLUID_BUCKET)) {
+        } else if (grapeFluid.getFluid().equals(((BucketItemAccessor) ModFluids.RED_GRAPE_FLUID_BUCKET).getFluid())) {
             return FluidVariant.of(ModFluids.STILL_BLUE_FERMENTED_WINE);
         }
         return FluidVariant.blank(); // Return a blank variant if no match

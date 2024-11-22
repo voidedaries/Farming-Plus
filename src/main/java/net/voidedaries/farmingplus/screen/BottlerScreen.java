@@ -19,6 +19,7 @@ import net.voidedaries.farmingplus.util.MouseUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("UnstableApiUsage")
 public class BottlerScreen extends HandledScreen<BottlerScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(FarmingPlus.MOD_ID, "textures/gui/bottler_gui.png");
     private FluidStackRenderer fluidStackRenderer;
@@ -48,6 +49,7 @@ public class BottlerScreen extends HandledScreen<BottlerScreenHandler> {
         renderFluidTooltip(context, mouseX, mouseY, x, y, handler.fluidStack, 152, 18, fluidStackRenderer);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void renderFluidTooltip(DrawContext context, int mouseX, int mouseY, int x, int y,
                                     FluidStack fluidStack, int offsetX, int offsetY, FluidStackRenderer renderer) {
         if(isMouseAboveArea(mouseX, mouseY, x, y, offsetX, offsetY, renderer)) {
@@ -95,6 +97,7 @@ public class BottlerScreen extends HandledScreen<BottlerScreenHandler> {
         return MouseUtil.isMouseOver(pMousex, pMousey, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());
     }
 
+    @SuppressWarnings("unused")
     private boolean isMouseAboveArea(int pMousex, int pMousey, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMousex, pMousey, x + offsetX, y + offsetY, width, height);
     }

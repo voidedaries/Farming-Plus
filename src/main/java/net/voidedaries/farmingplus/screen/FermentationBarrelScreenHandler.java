@@ -13,6 +13,7 @@ import net.minecraft.screen.slot.Slot;
 import net.voidedaries.farmingplus.block.entity.FermentationBarrelBlockEntity;
 import net.voidedaries.farmingplus.util.FluidStack;
 
+@SuppressWarnings("UnstableApiUsage")
 public class FermentationBarrelScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
@@ -70,7 +71,7 @@ public class FermentationBarrelScreenHandler extends ScreenHandler {
     public ItemStack quickMove(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
+        if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.size()) {

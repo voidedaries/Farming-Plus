@@ -31,6 +31,7 @@ import net.voidedaries.farmingplus.networking.packet.UpdateCrushingTubS2CPacket;
 import net.voidedaries.farmingplus.util.ModTags;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class CrushingTub extends BlockWithEntity implements BlockEntityProvider {
     public static final BooleanProperty HAS_ITEM = BooleanProperty.of("has_item");
     public static final IntProperty FLUID_LEVEL = IntProperty.of("fluid_level", 0, 8);

@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.voidedaries.farmingplus.block.entity.CrushingTubBlockEntity;
 
 public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<CrushingTubBlockEntity> {
+    @SuppressWarnings("unused")
     public CrushingTubBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
 
     }

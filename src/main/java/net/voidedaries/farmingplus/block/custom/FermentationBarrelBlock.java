@@ -20,6 +20,7 @@ import net.voidedaries.farmingplus.block.entity.FermentationBarrelBlockEntity;
 import net.voidedaries.farmingplus.block.entity.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class FermentationBarrelBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final VoxelShape SHAPE = Block.createCuboidShape(0,0,0, 16,16,16);
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;

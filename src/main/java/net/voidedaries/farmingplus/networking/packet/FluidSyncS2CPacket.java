@@ -13,9 +13,10 @@ import net.voidedaries.farmingplus.screen.BottlerScreenHandler;
 import net.voidedaries.farmingplus.screen.FermentationBarrelScreenHandler;
 import net.voidedaries.farmingplus.util.FluidStack;
 
+@SuppressWarnings("UnstableApiUsage")
 public class FluidSyncS2CPacket {
-    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
+    public static void receive(MinecraftClient client, ClientPlayNetworkHandler ignoredHandler,
+                               PacketByteBuf buf, PacketSender ignoredResponseSender) {
         FluidVariant variant = FluidVariant.fromPacket(buf);
         long fluidLevel = buf.readLong();
         BlockPos position = buf.readBlockPos();
@@ -26,6 +27,7 @@ public class FluidSyncS2CPacket {
                 if (blockEntity instanceof FermentationBarrelBlockEntity fermentationBarrelBlockEntity) {
                     fermentationBarrelBlockEntity.setPrimaryFluidLevel(variant, fluidLevel);
 
+                    //noinspection DataFlowIssue
                     if (client.player.currentScreenHandler instanceof FermentationBarrelScreenHandler fermentationBarrelScreenHandler &&
                             fermentationBarrelScreenHandler.blockEntity.getPos().equals(position)) {
                         fermentationBarrelScreenHandler.setPrimaryFluid(new FluidStack(variant, fluidLevel));
@@ -35,6 +37,7 @@ public class FluidSyncS2CPacket {
         });
     }
 
+    @SuppressWarnings("unused")
     public static void receiveSecondary(MinecraftClient client, ClientPlayNetworkHandler handler,
                                         PacketByteBuf buf, PacketSender responseSender) {
         BlockPos position = buf.readBlockPos();
@@ -47,6 +50,7 @@ public class FluidSyncS2CPacket {
                 if (blockEntity instanceof FermentationBarrelBlockEntity fermentationBarrelBlockEntity) {
                     fermentationBarrelBlockEntity.setSecondaryFluidLevel(variant, fluidLevel);
 
+                    //noinspection DataFlowIssue
                     if (client.player.currentScreenHandler instanceof FermentationBarrelScreenHandler screenHandler &&
                             screenHandler.blockEntity.getPos().equals(position)) {
                         screenHandler.setSecondaryFluid(new FluidStack(variant, fluidLevel));
@@ -56,8 +60,8 @@ public class FluidSyncS2CPacket {
         });
     }
 
-    public static void receiveBottlerSync(MinecraftClient client, ClientPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
+    public static void receiveBottlerSync(MinecraftClient client, ClientPlayNetworkHandler ignoredHandler,
+                               PacketByteBuf buf, PacketSender ignoredResponseSender) {
         FluidVariant variant = FluidVariant.fromPacket(buf);
         long fluidLevel = buf.readLong();
         BlockPos position = buf.readBlockPos();
@@ -68,6 +72,7 @@ public class FluidSyncS2CPacket {
                 if (blockEntity instanceof BottlerBlockEntity BottlerBlockEntity) {
                     BottlerBlockEntity.setFluidLevel(variant, fluidLevel);
 
+                    //noinspection DataFlowIssue
                     if (client.player.currentScreenHandler instanceof
                             BottlerScreenHandler BottlerScreenHandler &&
                             BottlerScreenHandler.blockEntity.getPos().equals(position)) {

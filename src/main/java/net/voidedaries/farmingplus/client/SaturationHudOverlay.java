@@ -24,7 +24,7 @@ public class SaturationHudOverlay implements HudRenderCallback {
             PlayerEntity player = client.player;
             int saturationLevel = (int) player.getHungerManager().getSaturationLevel();
 
-            GameMode gameMode = client.interactionManager.getCurrentGameMode();
+            @SuppressWarnings("DataFlowIssue") GameMode gameMode = client.interactionManager.getCurrentGameMode();
             if (client.interactionManager.getCurrentGameMode() != GameMode.SURVIVAL && gameMode != GameMode.ADVENTURE) {
                 return;
             }

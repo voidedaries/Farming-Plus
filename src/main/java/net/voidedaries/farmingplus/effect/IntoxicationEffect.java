@@ -26,8 +26,4 @@ public class IntoxicationEffect extends StatusEffect {
         }
     }
 
-    @Override
-    public boolean isInstant() {
-        return false;
-    }
 }

@@ -28,8 +28,8 @@ public class UpdateCrushingTubS2CPacket {
 
     }
 
-    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,
-                                                          PacketByteBuf buf, PacketSender responseSender) {
+    public static void receive(MinecraftClient client, ClientPlayNetworkHandler ignoredHandler,
+                                                          PacketByteBuf buf, PacketSender ignoredResponseSender) {
         BlockPos pos = buf.readBlockPos();
         ItemStack stack = buf.readItemStack();
         int fluidLevel = buf.readInt();

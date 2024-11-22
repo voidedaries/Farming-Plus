@@ -17,6 +17,7 @@ public class SiltFeature extends Feature<DefaultFeatureConfig> {
         super(codec);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
         StructureWorldAccess world = context.getWorld();
@@ -44,6 +45,8 @@ public class SiltFeature extends Feature<DefaultFeatureConfig> {
                     placedAny = true;
 
                     // Additional clustering logic based on the blobbyFactor
+                    //TODO READ AND GO THROUGH THIS PROPERLY ˅
+                    //noinspection ConstantValue
                     if (random.nextDouble() < spreadFactor) {
                         int extraSilt = random.nextInt(10) + 4;  // Number of extra blocks to add nearby
                         for (int k = 0; k < extraSilt; k++) {
@@ -61,6 +64,4 @@ public class SiltFeature extends Feature<DefaultFeatureConfig> {
         }
             return placedAny;
     }
-
-    //seed  4350889067989219121
 }

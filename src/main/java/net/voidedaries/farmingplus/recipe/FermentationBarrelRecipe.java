@@ -73,11 +73,12 @@ public class FermentationBarrelRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "fermentation_barrel";
 
-        public static final Codec<FermentationBarrelRecipe> CODDEC = RecordCodecBuilder.create(in -> in.group(
+        public static final Codec<FermentationBarrelRecipe> CODEC = RecordCodecBuilder.create(in -> in.group(
         validateAmount(Ingredient.DISALLOW_EMPTY_CODEC, 9).fieldOf("ingredients").forGetter(FermentationBarrelRecipe::getIngredients),
                 RecipeCodecs.CRAFTING_RESULT.fieldOf("output").forGetter(r -> r.output)
                 ).apply(in, FermentationBarrelRecipe::new));
 
+        @SuppressWarnings("SameParameterValue")
         private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
             return Codecs.validate(Codecs.validate(
                     delegate.listOf(), list -> list.size() > max ? DataResult.error(() -> "Recipe has too many ingredients!") : DataResult.success(list)
@@ -86,16 +87,14 @@ public class FermentationBarrelRecipe implements Recipe<SimpleInventory> {
 
         @Override
         public Codec<FermentationBarrelRecipe> codec() {
-            return CODDEC;
+            return CODEC;
         }
 
         @Override
         public FermentationBarrelRecipe read(PacketByteBuf buf) {
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
 
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromPacket(buf));
-            }
+            inputs.replaceAll(ignored -> Ingredient.fromPacket(buf));
 
             ItemStack output = buf.readItemStack();
             return new FermentationBarrelRecipe(inputs, output);

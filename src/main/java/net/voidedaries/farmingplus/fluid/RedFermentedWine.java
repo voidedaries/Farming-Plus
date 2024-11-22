@@ -101,10 +101,6 @@ public abstract class RedFermentedWine extends FlowableFluid {
             return state.get(LEVEL);
         }
 
-        @Override
-        public boolean isStill(FluidState state) {
-            return false;
-        }
     }
 
     public static class Still extends RedFermentedWine {

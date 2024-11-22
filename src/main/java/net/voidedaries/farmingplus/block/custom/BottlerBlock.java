@@ -43,6 +43,7 @@ public class BottlerBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
@@ -59,6 +60,7 @@ public class BottlerBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -71,6 +73,7 @@ public class BottlerBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             NamedScreenHandlerFactory screenHandlerFactory = ((BottlerBlockEntity) world.getBlockEntity(pos));

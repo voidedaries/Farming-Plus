@@ -1,10 +1,8 @@
 package net.voidedaries.farmingplus.util;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 
+@SuppressWarnings("UnstableApiUsage")
 public class FluidStack {
     public FluidVariant fluidVariant;
     public long amount;
@@ -34,7 +32,7 @@ public class FluidStack {
         return (droplets / 81);
     }
 
-    public static long convertMbtoDroplets(long mb) {
+    public static long convertMbToDroplets(long mb) {
         return mb * 81;
     }
 }

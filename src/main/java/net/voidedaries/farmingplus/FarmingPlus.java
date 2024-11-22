@@ -39,9 +39,8 @@ public class FarmingPlus implements ModInitializer {
 
 		ModMessages.registerC2SPackets();
 
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-			SyncPlayerStatsPacket.send(handler.player);
-		});
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
+				SyncPlayerStatsPacket.send(handler.player));
 
 		org.spongepowered.asm.mixin.Mixins.addConfiguration("farmingplus.mixins.json");
 	}

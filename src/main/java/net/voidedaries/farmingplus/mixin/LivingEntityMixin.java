@@ -1,7 +1,6 @@
 package net.voidedaries.farmingplus.mixin;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.voidedaries.farmingplus.effect.ModEffects;
 import net.voidedaries.farmingplus.mixininterface.StatusSavingPlayer;

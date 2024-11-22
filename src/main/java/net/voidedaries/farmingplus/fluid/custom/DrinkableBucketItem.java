@@ -24,7 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.voidedaries.farmingplus.fluid.ModFluids;
 
 public class DrinkableBucketItem extends BucketItem {
 
@@ -106,9 +105,10 @@ public class DrinkableBucketItem extends BucketItem {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        BlockPos blockPos = context.getBlockPos();
+        BlockPos blockPos;
         PlayerEntity player = context.getPlayer();
         ItemStack itemStack = context.getStack();
+        //noinspection DataFlowIssue I might need to deal with this
         BlockHitResult hitResult = raycast(world, player, RaycastContext.FluidHandling.SOURCE_ONLY);
 
         if (hitResult.getType() == HitResult.Type.BLOCK) {
@@ -120,7 +120,7 @@ public class DrinkableBucketItem extends BucketItem {
                     world.setBlockState(blockPos, fluidBlockState, 11);
                 }
 
-                if (player != null && !player.getAbilities().creativeMode) {
+                if (!player.getAbilities().creativeMode) {
                     itemStack.decrement(1);
                     player.getInventory().insertStack(new ItemStack(Items.BUCKET));
                 }

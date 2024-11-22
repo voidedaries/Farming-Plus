@@ -36,17 +36,20 @@ import net.voidedaries.farmingplus.util.ModTags;
 import org.jetbrains.annotations.Nullable;
 
 
+@SuppressWarnings("UnstableApiUsage")
 public class BottlerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
 
     private static final int CORK_SLOT = 0;
     private static final int BUCKET_SLOT = 1;
     private static final int BOTTLE_SLOT_1 = 2;
+    @SuppressWarnings("unused")
     private static final int BOTTLE_SLOT_2 = 3;
+    @SuppressWarnings("unused")
     private static final int BOTTLE_SLOT_3 = 4;
     private static final int BOTTLE_SLOT_4 = 5;
 
-    public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<FluidVariant>() {
+    public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<>() {
         @Override
         protected FluidVariant getBlankVariant() {
             return FluidVariant.blank();
@@ -60,7 +63,7 @@ public class BottlerBlockEntity extends BlockEntity implements ExtendedScreenHan
         @Override
         protected void onFinalCommit() {
             markDirty();
-            if (!world.isClient()) {
+            if (world != null && !world.isClient()) {
                 sendFluidPacket();
             }
         }
@@ -176,7 +179,7 @@ public class BottlerBlockEntity extends BlockEntity implements ExtendedScreenHan
         return new BottlerScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state, BottlerBlockEntity entity) {
+    public void tick(World world, BlockPos ignoredPos, BlockState state, BottlerBlockEntity entity) {
         int bottleCount = entity.countBottles();
 
         if (world.isClient()) {

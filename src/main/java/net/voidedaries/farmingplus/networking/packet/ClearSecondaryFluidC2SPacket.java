@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.voidedaries.farmingplus.FarmingPlus;
 import net.voidedaries.farmingplus.block.entity.FermentationBarrelBlockEntity;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class ClearSecondaryFluidC2SPacket {
     public static final Identifier ID = new Identifier(FarmingPlus.MOD_ID, "clear_secondary_fluid");
 
@@ -29,8 +30,9 @@ public class ClearSecondaryFluidC2SPacket {
         ClientPlayNetworking.send(ID, buf);
     }
 
-    public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                              PacketByteBuf buf, PacketSender responseSender) {
+    @SuppressWarnings("UnstableApiUsage")
+    public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler ignoredHandler,
+                              PacketByteBuf buf, PacketSender ignoredResponseSender) {
         BlockPos pos = buf.readBlockPos();
 
         server.execute(() -> {

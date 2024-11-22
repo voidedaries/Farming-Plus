@@ -22,6 +22,7 @@ public class SyncPlayerStatsPacket implements FabricPacket {
     public int PlayerID;
 
     public static void send(ServerPlayerEntity player) {
+        //noinspection unused IMPLEMENT THIS
         var statusSavingPlayer = (StatusSavingPlayer) player;
 
         ServerPlayNetworking.send(player, new SyncPlayerStatsPacket(player));
@@ -30,6 +31,8 @@ public class SyncPlayerStatsPacket implements FabricPacket {
     public static final PacketType<SyncPlayerStatsPacket> TYPE = PacketType.create(new Identifier(FarmingPlus.MOD_ID, "sync_packet"),
             SyncPlayerStatsPacket::new);
 
+    @SuppressWarnings("DataFlowIssue")
+    //TODO "Finish this"
     public SyncPlayerStatsPacket(ServerPlayerEntity player) {
         PlayerID = player.getId();
 
@@ -73,8 +76,9 @@ public class SyncPlayerStatsPacket implements FabricPacket {
         return TYPE;
     }
 
-    public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler,
-                              PacketByteBuf buf, PacketSender responseSender) {
+    @SuppressWarnings("DataFlowIssue")
+    public static void handle(MinecraftClient client, ClientPlayNetworkHandler ignoredHandler,
+                              PacketByteBuf buf, PacketSender ignoredResponseSender) {
 
         SyncPlayerStatsPacket packet = new SyncPlayerStatsPacket(buf);
 

@@ -18,8 +18,6 @@ import net.voidedaries.farmingplus.mixininterface.StatusSavingPlayer;
 import java.util.Random;
 
 public class WineItem extends Item {
-    private static final Random random = new Random();
-
     public WineItem(Settings settings) {
         super(settings);
     }

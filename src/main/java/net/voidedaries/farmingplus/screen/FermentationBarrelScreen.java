@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -23,6 +22,7 @@ import net.voidedaries.farmingplus.util.MouseUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("UnstableApiUsage")
 public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(FarmingPlus.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
     private FluidStackRenderer primaryfluidStackRenderer;
@@ -73,6 +73,7 @@ public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelSc
         renderFluidTooltip(context, mouseX, mouseY, x, y, handler.secondaryFluidStack, 97, 18, secondaryFluidStackRenderer);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void renderFluidTooltip(DrawContext context, int mouseX, int mouseY, int x, int y,
                                     FluidStack fluidStack, int offsetX, int offsetY, FluidStackRenderer renderer) {
         if(isMouseAboveArea(mouseX, mouseY, x, y, offsetX, offsetY, renderer)) {
@@ -122,9 +123,5 @@ public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelSc
 
     private boolean isMouseAboveArea(int pMousex, int pMousey, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
         return MouseUtil.isMouseOver(pMousex, pMousey, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());
-    }
-
-    private boolean isMouseAboveArea(int pMousex, int pMousey, int x, int y, int offsetX, int offsetY, int width, int height) {
-        return MouseUtil.isMouseOver(pMousex, pMousey, x + offsetX, y + offsetY, width, height);
     }
 }

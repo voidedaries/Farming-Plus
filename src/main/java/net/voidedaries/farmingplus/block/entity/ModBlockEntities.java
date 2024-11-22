@@ -2,13 +2,12 @@ package net.voidedaries.farmingplus.block.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.minecraft.block.entity.BlockEntity;
-import net.voidedaries.farmingplus.FarmingPlus;
-import net.voidedaries.farmingplus.block.ModBlocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.voidedaries.farmingplus.FarmingPlus;
+import net.voidedaries.farmingplus.block.ModBlocks;
 
 public class ModBlockEntities {
     public static final BlockEntityType<CrushingTubBlockEntity> CRUSHING_TUB_BLOCK_ENTITY =
@@ -26,6 +25,7 @@ public class ModBlockEntities {
                     FabricBlockEntityTypeBuilder.create(BottlerBlockEntity::new,
                             ModBlocks.BOTTLER).build());
 
+    @SuppressWarnings("UnstableApiUsage")
     public static void registerBlockEntities() {
 
         FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.primaryFluidStorage, FERMENTATION_BARREL_BLOCK_ENTITY);

@@ -1,19 +1,19 @@
 package net.voidedaries.farmingplus.block.custom;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.state.StateManager;
-import net.minecraft.world.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 import net.voidedaries.farmingplus.block.ModBlocks;
 import org.jetbrains.annotations.Nullable;
@@ -28,16 +28,6 @@ public class LoamFarmlandBlock extends FarmlandBlock {
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(MOISTURE);
-    }
-
-    @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-        return false;
-    }
-
-    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction == Direction.UP && !state.canPlaceAt(world, pos)) {
             world.scheduleBlockTick(pos, this, 1);
@@ -46,19 +36,8 @@ public class LoamFarmlandBlock extends FarmlandBlock {
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockState blockState = world.getBlockState(pos.up());
-        return !blockState.isSolid() || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof PistonExtensionBlock;
-    }
-
-    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return !this.getDefaultState().canPlaceAt(ctx.getWorld(), ctx.getBlockPos()) ? ModBlocks.LOAM.getDefaultState() : super.getPlacementState(ctx);
-    }
-
-    @Override
-    public boolean hasSidedTransparency(BlockState state) {
-        return true;
     }
 
     @Override
@@ -86,8 +65,7 @@ public class LoamFarmlandBlock extends FarmlandBlock {
         if (hasCrop(world, pos)) {
             BlockState cropState = world.getBlockState(pos.up());
 
-            if (cropState.getBlock() instanceof CropBlock) {
-                CropBlock crop = (CropBlock) cropState.getBlock();
+            if (cropState.getBlock() instanceof CropBlock crop) {
 
                 if (random.nextInt(3) == 0) {
                     int age = cropState.get(CropBlock.AGE);

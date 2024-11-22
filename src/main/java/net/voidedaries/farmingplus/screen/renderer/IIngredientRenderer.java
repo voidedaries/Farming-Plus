@@ -11,6 +11,7 @@ import java.util.List;
 
 // CREDIT: https://github.com/mezz/JustEnoughItems by mezz
 // Under MIT-License: https://github.com/mezz/JustEnoughItems/blob/1.18/LICENSE.txt
+@SuppressWarnings("unused")
 public interface IIngredientRenderer<T> {
     /**
      * Renders an ingredient at a specific location.
@@ -71,9 +72,7 @@ public interface IIngredientRenderer<T> {
      * @param ingredient the ingredient to render.
      *                   May be null, some renderers (like fluid tanks) will render an empty background.
      *
-     * @deprecated Use {@link #render(MatrixStack, Object)} instead.
      */
-    @Deprecated(forRemoval = true, since = "9.3.0")
     default void render(MatrixStack stack, int xPosition, int yPosition, @Nullable T ingredient) {
 
     }

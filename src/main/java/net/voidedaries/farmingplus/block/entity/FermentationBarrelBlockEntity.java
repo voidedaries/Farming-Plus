@@ -43,7 +43,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
 
     private static final long PRIMARY_FLUID_CAPACITY = FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 10;
 
-    public final SingleVariantStorage<FluidVariant> primaryFluidStorage = new SingleVariantStorage<FluidVariant>() {
+    public final SingleVariantStorage<FluidVariant> primaryFluidStorage = new SingleVariantStorage<>() {
         @Override
         protected FluidVariant getBlankVariant() {
             return FluidVariant.blank();
@@ -57,7 +57,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
         @Override
         protected void onFinalCommit() {
             markDirty();
-            if(!world.isClient()) {
+            if (world != null && !world.isClient()) {
                 sendPrimaryFluidPacket();
             }
         }
@@ -74,7 +74,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
         }
     }
 
-    public final SingleVariantStorage<FluidVariant> secondaryFluidStorage = new SingleVariantStorage<FluidVariant>() {
+    public final SingleVariantStorage<FluidVariant> secondaryFluidStorage = new SingleVariantStorage<>() {
         @Override
         protected FluidVariant getBlankVariant() {
             return FluidVariant.blank();
@@ -88,7 +88,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
         @Override
         protected void onFinalCommit() {
             markDirty();
-            if(!world.isClient()) {
+            if (world != null && !world.isClient()) {
                 sendSecondaryFluidPacket();
             }
         }
@@ -114,11 +114,11 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
-                switch (index) {
-                    case 0: return FermentationBarrelBlockEntity.this.progress;
-                    case 1: return FermentationBarrelBlockEntity.this.maxProgress;
-                    default: return 0;
-                }
+                return switch (index) {
+                    case 0 -> FermentationBarrelBlockEntity.this.progress;
+                    case 1 -> FermentationBarrelBlockEntity.this.maxProgress;
+                    default -> 0;
+                };
             }
 
             @Override
@@ -258,7 +258,8 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
     }
 
     private static void waitForSecondaryStorage(FermentationBarrelBlockEntity entity) {
-        FluidVariant fermentedWineFluid = FluidUtility.getFermentedWineFluidFromBucket(entity.primaryFluidStorage.variant);
+        FluidVariant fermentedWineFluid =
+                FluidUtility.getFermentedWineFluidFromBucket(entity.primaryFluidStorage.variant);
 
         if (fermentedWineFluid.isBlank()) {
             return;

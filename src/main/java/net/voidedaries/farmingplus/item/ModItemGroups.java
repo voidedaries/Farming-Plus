@@ -11,6 +11,7 @@ import net.voidedaries.farmingplus.FarmingPlus;
 import net.voidedaries.farmingplus.block.ModBlocks;
 import net.voidedaries.farmingplus.fluid.ModFluids;
 
+@SuppressWarnings("unused")
 public class ModItemGroups {
     public static final ItemGroup FARMINGPLUS = Registry.register(Registries.ITEM_GROUP,
             new Identifier(FarmingPlus.MOD_ID, "farming_plus" ),

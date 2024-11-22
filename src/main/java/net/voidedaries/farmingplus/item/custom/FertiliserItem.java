@@ -37,8 +37,7 @@ public class FertiliserItem extends BoneMealItem {
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        if (block instanceof CropBlock) {
-            CropBlock cropBlock = (CropBlock) block;
+        if (block instanceof CropBlock cropBlock) {
             int currentAge = cropBlock.getAge(state);
             int maxAge = cropBlock.getMaxAge();
 
@@ -69,7 +68,7 @@ public class FertiliserItem extends BoneMealItem {
         return false;
     }
 
-    private boolean useFertiliserOnOtherBlocks(World world, BlockPos pos, BlockState state) {
+    private boolean useFertiliserOnOtherBlocks(World ignoredWorld, BlockPos ignoredPos, BlockState state) {
         Block block = state.getBlock();
 
         return false;

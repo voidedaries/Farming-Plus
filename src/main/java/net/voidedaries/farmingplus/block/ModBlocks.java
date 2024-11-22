@@ -44,6 +44,7 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(FarmingPlus.MOD_ID, name), block);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private static Item registerBlockItem(String name, Block block) {
         return Registry.register(Registries.ITEM, new Identifier(FarmingPlus.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));

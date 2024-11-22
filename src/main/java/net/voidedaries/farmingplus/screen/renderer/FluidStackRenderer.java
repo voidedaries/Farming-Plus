@@ -25,6 +25,7 @@ import java.util.List;
 // CREDIT: https://github.com/mezz/JustEnoughItems by mezz (Forge Version)
 // HIGHLY EDITED VERSION FOR FABRIC by Kaupenjoe
 // Under MIT-License: https://github.com/mezz/JustEnoughItems/blob/1.18/LICENSE.txt
+@SuppressWarnings("UnstableApiUsage")
 public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
     private static final NumberFormat nf = NumberFormat.getIntegerInstance();
     public final long capacityMb;
@@ -32,12 +33,14 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
     private final int width;
     private final int height;
 
+    @SuppressWarnings("unused")
     enum TooltipMode {
         SHOW_AMOUNT,
         SHOW_AMOUNT_AND_CAPACITY,
         ITEM_LIST
     }
 
+    @SuppressWarnings("unused")
     public FluidStackRenderer() {
         this(FluidStack.convertDropletsToMb(FluidConstants.BUCKET), TooltipMode.SHOW_AMOUNT_AND_CAPACITY, 16, 16);
     }
@@ -46,7 +49,6 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
         this(capacityMb, showCapacity ? TooltipMode.SHOW_AMOUNT_AND_CAPACITY : TooltipMode.SHOW_AMOUNT, width, height);
     }
 
-    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public FluidStackRenderer(int capacityMb, boolean showCapacity, int width, int height) {
         this(capacityMb, showCapacity ? TooltipMode.SHOW_AMOUNT_AND_CAPACITY : TooltipMode.SHOW_AMOUNT, width, height);
@@ -76,6 +78,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
         int color = FluidVariantRendering.getColor(fluid.getFluidVariant());
 
         final int drawHeight = (int) (fluid.getAmount() / (maxCapacity * 1F) * height);
+        @SuppressWarnings("DataFlowIssue")
         final int iconHeight = sprite.getY();
         int offsetHeight = drawHeight;
 
@@ -83,7 +86,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
 
         int iteration = 0;
         while (offsetHeight != 0) {
-            final int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
+            final int curHeight = Math.min(offsetHeight, iconHeight);
 
             context.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
             offsetHeight -= curHeight;

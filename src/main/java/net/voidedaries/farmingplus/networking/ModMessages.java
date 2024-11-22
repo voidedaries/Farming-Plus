@@ -15,8 +15,9 @@ public class ModMessages {
     public static final Identifier SECONDARY_FLUID_SYNC = new Identifier(FarmingPlus.MOD_ID, "secondary_fluid_sync");
     public static final Identifier BOTTLER_FLUID_SYNC = new Identifier(FarmingPlus.MOD_ID, "bottler_fluid_sync");
     public static final Identifier UPDATE_CRUSHING_TUB_ID = new Identifier(FarmingPlus.MOD_ID, "update_crushing_tub");
-    public static final Identifier SYNC_PLAYER_STATS_ID = new Identifier(FarmingPlus.MOD_ID, "sync_player_stats");
     public static final Identifier CLEAR_SECONDARY_FLUID = new Identifier(FarmingPlus.MOD_ID, "clear_secondary_fluid");
+    @SuppressWarnings("unused") // I NEED TO FINISH THIS
+    public static final Identifier SYNC_PLAYER_STATS_ID = new Identifier(FarmingPlus.MOD_ID, "sync_player_stats");
 
     public static void registerC2SPackets() {
         ServerPlayNetworking.registerGlobalReceiver(CLEAR_SECONDARY_FLUID, ClearSecondaryFluidC2SPacket::handle);

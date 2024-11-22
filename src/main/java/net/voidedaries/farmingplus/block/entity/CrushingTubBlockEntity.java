@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings("UnstableApiUsage")
 public class CrushingTubBlockEntity extends BlockEntity implements ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     private CrushingTub.GrapeFluidType fluidType = CrushingTub.GrapeFluidType.NONE;
@@ -154,7 +155,7 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         }
     }
 
-    public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<FluidVariant>() {
+    public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<>() {
         @Override
         protected FluidVariant getBlankVariant() {
             return FluidVariant.blank();
@@ -162,13 +163,13 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
 
         @Override
         protected long getCapacity(FluidVariant variant) {
-            return FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 1; // 1 Bucket
+            return FluidStack.convertDropletsToMb(FluidConstants.BUCKET);
         }
 
         @Override
         protected void onFinalCommit() {
             markDirty();
-            if (!world.isClient()) {
+            if (world != null && !world.isClient()) {
                 PacketByteBuf data = PacketByteBufs.create();
                 variant.toPacket(data);
                 data.writeLong(amount);

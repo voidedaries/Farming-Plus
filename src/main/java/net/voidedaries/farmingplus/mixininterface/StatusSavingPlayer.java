@@ -23,6 +23,7 @@ public interface StatusSavingPlayer {
 
     void farmingplus$save();
 
+    @SuppressWarnings("unused") //TODO FINISH THIS
     void farmingplus$clear();
 
 }
