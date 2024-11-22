@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_bars"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "   ",
+    " I ",
+    "SSS"
+  ],
+  "result": {
+    "item": "farmingplus:bottler"
+  },
+  "show_notification": true
+}

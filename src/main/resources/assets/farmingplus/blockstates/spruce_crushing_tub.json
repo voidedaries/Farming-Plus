@@ -1,0 +1,314 @@
+{
+	"multipart": [
+		{
+			"when": { "fluid_type": "none" },
+			"apply": { "model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base" }
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 0 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 1 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 1 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl1"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 2 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 2 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl2"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 3 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 3 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl3"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 4 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 4 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl4"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 5 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 5 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl5"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 6 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 6 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl6"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 7 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 7 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_lvl7"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 8 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "red", "fluid_level": 8 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/red/crushing_tub_fluid_full"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 0 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 1 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 1 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl1"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 2 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 2 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl2"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 3 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 3 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl3"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 4 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 4 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl4"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 5 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 5 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl5"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 6 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 6 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl6"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 7 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 7 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_lvl7"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 8 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "blue", "fluid_level": 8 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/blue/crushing_tub_fluid_full"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 0 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 1 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 1 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl1"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 2 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 2 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl2"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 3 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 3 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl3"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 4 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 4 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl4"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 5 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 5 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl5"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 6 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 6 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl6"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 7 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 7 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_lvl7"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 8 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base"
+			}
+		},
+		{
+			"when": { "fluid_type": "white", "fluid_level": 8 },
+			"apply": {
+				"model": "farmingplus:block/crushing_tub_lvls/white/crushing_tub_fluid_full"
+			}
+		}
+	]
+}

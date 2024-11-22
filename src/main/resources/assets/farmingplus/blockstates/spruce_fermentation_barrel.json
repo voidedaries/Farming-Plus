@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "farmingplus:block/spruce_fermentation_barrel" },
+    "facing=south": { "model": "farmingplus:block/spruce_fermentation_barrel", "y": 180 },
+    "facing=west": { "model": "farmingplus:block/spruce_fermentation_barrel", "y": 270 },
+    "facing=east": { "model": "farmingplus:block/spruce_fermentation_barrel", "y": 90 }
+  }
+}

@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "farmingplus",
+	"version": "${version}",
+	"name": "Farming Plus",
+	"description": "This is a Farming Mod made by VoidedAries",
+	"authors": [
+		"VoidedAries!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/farmingplus/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.voidedaries.farmingplus.FarmingPlus"
+		],
+		"client": [
+			"net.voidedaries.farmingplus.FarmingPlusClient"
+		],
+		"fabric-datagen": [
+			"net.voidedaries.farmingplus.FarmingPlusDataGenerator"
+		]
+	},
+	"mixins": [
+		"farmingplus.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

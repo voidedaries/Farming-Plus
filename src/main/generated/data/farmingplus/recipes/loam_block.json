@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "farmingplus:silt_block"
+    },
+    "C": {
+      "item": "minecraft:clay"
+    },
+    "S": {
+      "item": "minecraft:sand"
+    }
+  },
+  "pattern": [
+    " # ",
+    "SCS",
+    " # "
+  ],
+  "result": {
+    "count": 4,
+    "item": "farmingplus:loam_block"
+  },
+  "show_notification": true
+}

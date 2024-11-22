@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "farmingplus:red_grape_fluid_bottle",
+    "farmingplus:red_grape_fluid_bucket",
+    "farmingplus:blue_grape_fluid_bottle",
+    "farmingplus:blue_grape_fluid_bucket",
+    "farmingplus:white_grape_fluid_bottle",
+    "farmingplus:white_grape_fluid_bucket"
+  ]
+}

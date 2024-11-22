@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "farmingplus:block/crushing_tubs/base_model",
+	"textures": {
+		"fluid": "farmingplus:block/crushing_tub/white_grape_juice"
+	},
+	"elements": [
+		{
+			"from": [1, 5, 1],
+			"to": [15, 5, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 11], "texture": "#fluid"},
+				"east": {"uv": [1, 11, 15, 11], "texture": "#fluid"},
+				"south": {"uv": [1, 11, 15, 11], "texture": "#fluid"},
+				"west": {"uv": [1, 11, 15, 11], "texture": "#fluid"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#fluid"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#fluid"}
+			}
+		}
+	]
+}

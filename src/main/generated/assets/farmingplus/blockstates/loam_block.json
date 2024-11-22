@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "farmingplus:block/loam_block"
+    }
+  }
+}

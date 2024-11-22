@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "bottle_count=0": { "model": "farmingplus:block/bottler/bottler_empty" },
+    "bottle_count=1": { "model": "farmingplus:block/bottler/bottler_1_bottle" },
+    "bottle_count=2": { "model": "farmingplus:block/bottler/bottler_2_bottles" },
+    "bottle_count=3": { "model": "farmingplus:block/bottler/bottler_3_bottles" },
+    "bottle_count=4": { "model": "farmingplus:block/bottler/bottler_4_bottles" }
+  }
+}

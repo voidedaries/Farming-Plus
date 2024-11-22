@@ -1,0 +1,6 @@
+{
+  "parent": "farmingplus:block/crushing_tubs/spruce_crushing_tub_base",
+  "textures": {
+    "fluid": "farmingplus:block/crushing_tub/no_grape_juice"
+  }
+}

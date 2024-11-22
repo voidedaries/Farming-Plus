@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bone_meal"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "L": {
+      "item": "minecraft:oak_leaves"
+    },
+    "M": {
+      "item": "farmingplus:manure"
+    }
+  },
+  "pattern": [
+    "ML",
+    "DB"
+  ],
+  "result": {
+    "item": "farmingplus:fertiliser"
+  },
+  "show_notification": true
+}

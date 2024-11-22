@@ -1,0 +1,45 @@
+{
+  "targets": [
+    "temp"
+  ],
+  "passes": [
+    {
+      "name": "farmingplus:double_vision",
+      "intarget": "minecraft:main",
+      "outtarget": "temp",
+      "uniforms": [
+        {
+          "name": "InScale",
+          "values": [ 1.0, 1.0 ]
+        },
+        {
+          "name": "InOffset",
+          "values": [ -0.05, 0 ]
+        },
+        {
+          "name": "Scissor",
+          "values": [ 0.0, 0.0, 1.0, 1.0 ]
+        },
+        {
+          "name": "Vignette",
+          "values": [ 0.1, 0.1, 0.9, 0.9 ]
+        },
+        {
+          "name": "Opacity",
+          "values": [ 0.5 ]
+        }
+      ]
+    },
+    {
+      "name": "blit",
+      "intarget": "temp",
+      "outtarget": "minecraft:main",
+      "uniforms": [
+        {
+          "name": "ColorModulate",
+          "values": [ 1.0, 1.0, 1.0, 1.0 ]
+        }
+      ]
+    }
+  ]
+}
