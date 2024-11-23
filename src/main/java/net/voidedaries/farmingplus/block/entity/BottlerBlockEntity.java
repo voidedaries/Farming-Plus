@@ -206,10 +206,27 @@ public class BottlerBlockEntity extends BlockEntity implements ExtendedScreenHan
             }
         }
 
-        if (hasFluidSourceInSlot(entity) && !isFluidStorageFull()) {
+        if (hasFluidSourceInSlot(entity) && !isFluidStorageFull() && !isFermentedFluidDifferent(entity)) {
             transferFluidToFluidStorage(entity);
         }
 
+    }
+
+    private boolean isFermentedFluidDifferent(BottlerBlockEntity entity) {
+        ItemStack bucketStack = entity.getStack(BUCKET_SLOT);
+
+        FluidVariant bucketFluidVariant = FluidVariant.blank();
+        if (bucketStack.getItem() == ModFluids.RED_FERMENTED_FLUID_BUCKET) {
+            bucketFluidVariant = FluidVariant.of(ModFluids.STILL_RED_FERMENTED_WINE);
+        } else if (bucketStack.getItem() == ModFluids.WHITE_FERMENTED_FLUID_BUCKET) {
+            bucketFluidVariant = FluidVariant.of(ModFluids.STILL_WHITE_FERMENTED_WINE);
+        } else if (bucketStack.getItem() == ModFluids.BLUE_FERMENTED_FLUID_BUCKET) {
+            bucketFluidVariant = FluidVariant.of(ModFluids.STILL_BLUE_FERMENTED_WINE);
+        }
+
+        return !bucketFluidVariant.isBlank() &&
+                !entity.fluidStorage.variant.isBlank() &&
+                !bucketFluidVariant.equals(entity.fluidStorage.variant);
     }
 
     private boolean isFluidStorageFull() {

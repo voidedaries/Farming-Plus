@@ -206,7 +206,12 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
             entity.primaryFluidStorage.variant = FluidVariant.blank();
         }
 
-        if(hasEnoughFluid(entity)) {
+        if (entity.secondaryFluidStorage.amount == 0) {
+            entity.secondaryFluidStorage.variant = FluidVariant.blank();
+        }
+
+        if(hasEnoughFluid(entity) && (FluidUtility.getFermentedWineFluid(entity.primaryFluidStorage.variant) ==
+                entity.secondaryFluidStorage.variant || entity.secondaryFluidStorage.variant == FluidVariant.blank())) {
             entity.progress++;
             if (entity.progress >= entity.maxProgress) {
                 fermentToWine(entity);
