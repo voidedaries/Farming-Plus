@@ -16,6 +16,10 @@ public class ModScreenHandlers {
             Registry.register(Registries.SCREEN_HANDLER, new Identifier(FarmingPlus.MOD_ID, "bottler"),
                     new ExtendedScreenHandlerType<>(BottlerScreenHandler::new));
 
+    public static final ScreenHandlerType<SeedBagScreenHandler> SEED_BAG_SCREEN_HANDLER =
+            Registry.register(Registries.SCREEN_HANDLER, new Identifier(FarmingPlus.MOD_ID, "seed_bag"),
+                    new ExtendedScreenHandlerType<>(SeedBagScreenHandler::new));
+
     public static void registerScreenHandlers() {
         FarmingPlus.LOGGER.info("Registering Screen Handlers for " + FarmingPlus.MOD_ID);
     }

@@ -42,6 +42,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.IRON_BARS), conditionsFromItem(Items.IRON_BARS))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.BOTTLER)));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.SEED_BAG, 1)
+                .pattern("LSL")
+                .pattern("S S")
+                .pattern("LSL")
+                .input('L', Items.LEATHER)
+                .input('S', Items.STRING)
+                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.SEED_BAG)));
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModItems.WINE_BOTTLE, 4)
                 .pattern("G G")
                 .pattern("G G")

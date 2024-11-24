@@ -69,7 +69,7 @@ public class FertiliserItem extends BoneMealItem {
     }
 
     private boolean useFertiliserOnOtherBlocks(World ignoredWorld, BlockPos ignoredPos, BlockState state) {
-        //If needed add functionality if I want to add more to this fertiliser item
+        //If needed to add functionality if I want to add more to this fertiliser item
         Block block = state.getBlock();
 
         return false;

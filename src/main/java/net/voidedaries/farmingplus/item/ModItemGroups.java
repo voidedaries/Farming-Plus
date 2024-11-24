@@ -59,6 +59,8 @@ public class ModItemGroups {
                         //FLOWERS
                         entries.add(ModBlocks.BLUEBELL);
 
+                        entries.add(ModItems.SEED_BAG);
+
                     }).build());
 
     public static void registerItemGroups() {

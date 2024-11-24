@@ -23,6 +23,7 @@ import net.voidedaries.farmingplus.networking.ModMessages;
 import net.voidedaries.farmingplus.screen.BottlerScreen;
 import net.voidedaries.farmingplus.screen.FermentationBarrelScreen;
 import net.voidedaries.farmingplus.screen.ModScreenHandlers;
+import net.voidedaries.farmingplus.screen.SeedBagScreen;
 
 public class FarmingPlusClient implements ClientModInitializer {
     public static final Identifier SPLIT_ID = new Identifier(FarmingPlus.MOD_ID,"shaders/post/double_vision.json");
@@ -49,6 +50,8 @@ public class FarmingPlusClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.FERMENTATION_BARREL_SCREEN_HANDLER, FermentationBarrelScreen::new);
 
         HandledScreens.register(ModScreenHandlers.BOTTLER_SCREEN_HANDLER, BottlerScreen::new);
+
+        HandledScreens.register(ModScreenHandlers.SEED_BAG_SCREEN_HANDLER, SeedBagScreen::new);
 
         BlockEntityRendererFactories.register(ModBlockEntities.CRUSHING_TUB_BLOCK_ENTITY, CrushingTubBlockEntityRenderer::new);
 

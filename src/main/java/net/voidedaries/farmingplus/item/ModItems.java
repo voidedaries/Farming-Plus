@@ -7,6 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.voidedaries.farmingplus.FarmingPlus;
 import net.voidedaries.farmingplus.item.custom.FertiliserItem;
+import net.voidedaries.farmingplus.item.custom.SeedBagItem;
 import net.voidedaries.farmingplus.item.custom.WineItem;
 
 public class ModItems {
@@ -25,11 +26,13 @@ public class ModItems {
     public static final Item CORK = registerItem("cork",
             new Item(new FabricItemSettings()));
     public static final Item RED_GRAPES = registerItem("red_grapes",
-            new FertiliserItem(new FabricItemSettings().food(ModFoodComponents.RED_GRAPES)));
+            new Item(new FabricItemSettings().food(ModFoodComponents.RED_GRAPES)));
     public static final Item WHITE_GRAPES = registerItem("white_grapes",
-            new FertiliserItem(new FabricItemSettings().food(ModFoodComponents.RED_GRAPES)));
+            new Item(new FabricItemSettings().food(ModFoodComponents.RED_GRAPES)));
     public static final Item BLUE_GRAPES = registerItem("blue_grapes",
-            new FertiliserItem(new FabricItemSettings().food(ModFoodComponents.RED_GRAPES)));
+            new Item(new FabricItemSettings().food(ModFoodComponents.RED_GRAPES)));
+    public static final Item SEED_BAG = registerItem("seed_bag",
+            new SeedBagItem(new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(FarmingPlus.MOD_ID, name), item);
