@@ -3,6 +3,7 @@ package net.voidedaries.farmingplus.screen;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.voidedaries.farmingplus.FarmingPlus;
@@ -18,7 +19,7 @@ public class ModScreenHandlers {
 
     public static final ScreenHandlerType<SeedBagScreenHandler> SEED_BAG_SCREEN_HANDLER =
             Registry.register(Registries.SCREEN_HANDLER, new Identifier(FarmingPlus.MOD_ID, "seed_bag"),
-                    new ExtendedScreenHandlerType<>(SeedBagScreenHandler::new));
+                    new ScreenHandlerType<>(SeedBagScreenHandler::new, FeatureSet.empty()));
 
     public static void registerScreenHandlers() {
         FarmingPlus.LOGGER.info("Registering Screen Handlers for " + FarmingPlus.MOD_ID);

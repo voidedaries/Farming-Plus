@@ -21,6 +21,7 @@ public class ModTags {
         public static final TagKey<Item> GRAPE_ITEMS = createTag("grape_items");
         public static final TagKey<Item> GRAPE_FLUID_ITEMS = createTag("grape_fluid_items");
         public static final TagKey<Item> FERMENTED_FLUID_BUCKETS = createTag("fermented_fluid_buckets");
+        public static final TagKey<Item> SEED_BAG_ACCEPTABLE = createTag("seed_bag_acceptable");
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, new Identifier(FarmingPlus.MOD_ID, name));

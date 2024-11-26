@@ -5,25 +5,18 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.collection.DefaultedList;
+import net.voidedaries.farmingplus.item.ModItems;
 import net.voidedaries.farmingplus.item.custom.SeedBagItem;
+import net.voidedaries.farmingplus.util.ModTags;
 
 public class SeedBagScreenHandler extends ScreenHandler {
-    private final Inventory inventory;
+    Inventory inventory;
 
-    public SeedBagScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(syncId, playerInventory, readInventoryFromBuf(buf));
-    }
 
-    private static Inventory readInventoryFromBuf(PacketByteBuf buf) {
-        ItemStack stack = buf.readItemStack();
-        DefaultedList<ItemStack> inventoryData = DefaultedList.ofSize(18, ItemStack.EMPTY);
-        SeedBagItem.readNbt(stack, inventoryData);
-        return new SimpleInventory(inventoryData.toArray(new ItemStack[0]));
+    public SeedBagScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, new SimpleInventory(18));
     }
 
     public SeedBagScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
@@ -32,25 +25,17 @@ public class SeedBagScreenHandler extends ScreenHandler {
         checkSize(inventory, 18);
         inventory.onOpen(playerInventory.player);
 
-        addSeedBagInventory();
+        addSeedBagInventory(inventory);
         addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
+        addPlayerHotbar(playerInventory, playerInventory.selectedSlot);
     }
 
     @Override
     public void onClosed(PlayerEntity player) {
-        super.onClosed(player);
-
-        if (player instanceof ServerPlayerEntity serverPlayer) {
-            ItemStack stack = serverPlayer.getMainHandStack();
-            if (stack.getItem() instanceof SeedBagItem) {
-                DefaultedList<ItemStack> inventory = DefaultedList.ofSize(18, ItemStack.EMPTY);
-                for (int i = 0; i < this.inventory.size(); i++) {
-                    inventory.set(i, this.inventory.getStack(i));
-                }
-                SeedBagItem.writeNbt(stack, inventory);
-            }
+        if (this.inventory != null) {
+            this.inventory.onClose(player);
         }
+        super.onClosed(player);
     }
 
     @Override
@@ -68,14 +53,14 @@ public class SeedBagScreenHandler extends ScreenHandler {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
 
-            if (invSlot < this.inventory.size()) {
+            if (invSlot < 18) {
                 // Move from seed bag inventory to player inventory
-                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+                if (!this.insertItem(originalStack, 18, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
                 // Move from player inventory to seed bag inventory
-                if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+                if (!this.insertItem(originalStack, 0, 18, false)) {
                     return ItemStack.EMPTY;
                 }
             }
@@ -91,13 +76,18 @@ public class SeedBagScreenHandler extends ScreenHandler {
     }
 
 
-    private void addSeedBagInventory() {
+    private void addSeedBagInventory(Inventory inventory) {
         int xStart = 8;
         int yStart = 18;
-        for (int i = 0; i < inventory.size(); i++) {
+        for (int i = 0; i < 18; i++) {
             int x = xStart + (i % 9) * 18;
             int y = yStart + (i / 9) * 18;
-            this.addSlot(new Slot(inventory, i, x, y));
+            this.addSlot(new Slot(inventory, i, x, y){
+                @Override
+                public boolean canInsert(ItemStack stack) {
+                    return !stack.isOf(ModItems.SEED_BAG) && stack.isIn(ModTags.Items.SEED_BAG_ACCEPTABLE);
+                }
+            });
         }
     }
 
@@ -109,9 +99,15 @@ public class SeedBagScreenHandler extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(PlayerInventory playerInventory, int selectedSlot) {
         for (int col = 0; col < 9; ++col) {
-            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 124));
+            int finalCol = col;
+            this.addSlot(new Slot(playerInventory, finalCol, 8 + col * 18, 124){
+                @Override
+                public boolean canTakeItems(PlayerEntity playerEntity) {
+                    return selectedSlot != finalCol;
+                }
+            });
         }
     }
 }
