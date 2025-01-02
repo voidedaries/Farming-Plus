@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:composter"
+    },
+    "E": {
+      "item": "farmingplus:ender_shard"
+    },
+    "P": {
+      "item": "minecraft:purpur_block"
+    },
+    "S": {
+      "item": "minecraft:end_stone_bricks"
+    }
+  },
+  "pattern": [
+    "EPE",
+    "SCS",
+    "EPE"
+  ],
+  "result": {
+    "item": "farmingplus:void_composter"
+  }
+}

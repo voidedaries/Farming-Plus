@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:composter"
+    },
+    "E": {
+      "item": "farmingplus:ember_shard"
+    },
+    "N": {
+      "item": "minecraft:nether_bricks"
+    },
+    "O": {
+      "item": "minecraft:crying_obsidian"
+    }
+  },
+  "pattern": [
+    "EOE",
+    "NCN",
+    "EOE"
+  ],
+  "result": {
+    "item": "farmingplus:cinder_composter"
+  }
+}
