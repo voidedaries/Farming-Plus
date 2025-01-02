@@ -19,7 +19,6 @@ import net.voidedaries.farmingplus.util.MouseUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("UnstableApiUsage")
 public class BottlerScreen extends HandledScreen<BottlerScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(FarmingPlus.MOD_ID, "textures/gui/bottler_gui.png");
     private FluidStackRenderer fluidStackRenderer;
@@ -32,6 +31,7 @@ public class BottlerScreen extends HandledScreen<BottlerScreenHandler> {
     protected void init() {
         super.init();
         titleY = 6;
+        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         playerInventoryTitleY = 73;
         assignFluidStackRenderer();
     }
@@ -47,6 +47,7 @@ public class BottlerScreen extends HandledScreen<BottlerScreenHandler> {
         int y = (height - backgroundHeight) / 2;
 
         renderFluidTooltip(context, mouseX, mouseY, x, y, handler.fluidStack, 152, 18, fluidStackRenderer);
+        super.drawForeground(context, mouseX, mouseY);
     }
 
     @SuppressWarnings("SameParameterValue")

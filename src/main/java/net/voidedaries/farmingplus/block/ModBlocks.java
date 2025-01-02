@@ -3,12 +3,12 @@ package net.voidedaries.farmingplus.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
-import net.minecraft.item.Item;
 import net.voidedaries.farmingplus.FarmingPlus;
 import net.voidedaries.farmingplus.block.custom.*;
 
@@ -17,10 +17,16 @@ public class ModBlocks {
             new LoamBlock(FabricBlockSettings.copyOf(Blocks.DIRT)));
 
     public static final Block LOAM_FARMLAND = registerBlock("loam_farmland",
-            new LoamFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)));
+            new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), ModBlocks.LOAM));
+
+    public static final Block NETHERRACK_FARMLAND = registerBlock("netherrack_farmland",
+            new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.NETHERRACK));
+
+    public static final Block END_FARMLAND = registerBlock("end_farmland",
+            new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.END_STONE));
 
     public static final Block SILT = registerBlock("silt_block",
-            new FallingBlock(FabricBlockSettings.copyOf(Blocks.SAND)));
+            new ColoredFallingBlock(new ColorCode(14406560), AbstractBlock.Settings.copy(Blocks.SAND)));
 
     public static final Block SPRUCE_CRUSHING_TUB = registerBlock("spruce_crushing_tub",
             new CrushingTub(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS).nonOpaque()));
@@ -31,13 +37,21 @@ public class ModBlocks {
     public static final Block BOTTLER = registerBlock("bottler",
             new BottlerBlock(FabricBlockSettings.copyOf(Blocks.BREWING_STAND).nonOpaque()));
 
-    // FLOWERS
-    public static final Block BLUEBELL = registerBlock("bluebell",
-            new FlowerBlock(StatusEffects.ABSORPTION, 0,
-                    FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision()));
+    public static final Block CINDER_COMPOSTER = registerBlock("cinder_composter",
+            new CustomComposterBlock(FabricBlockSettings.copyOf(Blocks.COMPOSTER)));
 
-    public static final Block POTTED_BLUEBELL = registerBlock("potted_bluebell",
-            new FlowerPotBlock(BLUEBELL, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));
+    public static final Block VOID_COMPOSTER = registerBlock("void_composter",
+            new CustomComposterBlock(FabricBlockSettings.copyOf(Blocks.COMPOSTER)));
+    static {
+        CustomComposterBlock.registerDefaultCompostableItems();
+    }
+    //GRAPE BLOCKS
+    public static final Block RED_GRAPE_VINE = registerBlock("red_grape_vine",
+            new GrapeBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH)));
+    public static final Block BLUE_GRAPE_VINE = registerBlock("blue_grape_vine",
+            new GrapeBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH)));
+    public static final Block WHITE_GRAPE_VINE = registerBlock("white_grape_vine",
+            new GrapeBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

@@ -1,5 +1,6 @@
 package net.voidedaries.farmingplus.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -108,45 +109,43 @@ public class CrushingTub extends BlockWithEntity implements BlockEntityProvider 
             if (blockEntity != null) {
                 ItemStack itemStack = blockEntity.getItem();
 
-                // Check if there is an item and it's a grape item
                 if (!itemStack.isEmpty() && isGrapeItem(itemStack) && !blockEntity.isFluidFull()) {
                     GrapeFluidType currentFluidType = blockEntity.getFluidType();
                     GrapeFluidType grapeType = getGrapeTypeFromItem(itemStack);
 
-                    // Check if the grape type matches the current fluid type or if no fluid is present
+                    // Check if the fluid type is compatible
                     if (currentFluidType == GrapeFluidType.NONE || currentFluidType == grapeType) {
                         if (grapeType != GrapeFluidType.NONE) {
                             world.playSound(null, pos, SoundEvents.ENTITY_SLIME_SQUISH, SoundCategory.BLOCKS, 1.0f, 0.5f);
 
                             itemStack.decrement(1);
-                            blockEntity.addGrapeFluid(125, grapeType);
+                            blockEntity.addGrapeFluid(125, grapeType); // Add fluid
 
-                            // Set the fluid type in the block state only if it's not set already
+                            // Ensure the fluid type is updated in the block state if it was previously NONE
                             if (currentFluidType == GrapeFluidType.NONE) {
                                 world.setBlockState(pos, state.with(FLUID_TYPE, grapeType));
                             }
 
+                            // Handle item removal or update
                             if (itemStack.isEmpty()) {
                                 blockEntity.setInventorySync(inventory -> inventory.set(0, ItemStack.EMPTY));
-                                world.setBlockState(pos, world.getBlockState(pos).with(HAS_ITEM, false));
+                                world.setBlockState(pos, state.with(HAS_ITEM, false));
                                 UpdateCrushingTubS2CPacket.send((ServerPlayerEntity) entity, blockEntity);
                             } else {
                                 blockEntity.setInventorySync(inventory -> inventory.set(0, itemStack.copy()));
                                 UpdateCrushingTubS2CPacket.send((ServerPlayerEntity) entity, blockEntity);
                             }
 
+                            // Update the fluid level
                             blockEntity.updateFluidLevel();
                         }
                     } else {
-                        // If the grape type does not match the existing fluid type, notify the player
                         System.out.println("You can't mix different types of grapes!");
                     }
                 }
             }
         }
     }
-
-
 
     private GrapeFluidType getGrapeTypeFromItem(ItemStack itemStack) {
         if (itemStack.getItem() == ModItems.RED_GRAPES) {
@@ -266,6 +265,11 @@ public class CrushingTub extends BlockWithEntity implements BlockEntityProvider 
             BlockEntity > BlockEntityTicker < T > getTicker(World world, BlockState state, BlockEntityType < T > type) {
         return validateTicker(type, ModBlockEntities.CRUSHING_TUB_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1, blockEntity));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(CrushingTub::new);
     }
 
 }

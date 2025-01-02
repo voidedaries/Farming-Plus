@@ -30,6 +30,5 @@
     "recipes": [
       "minecraft:cork"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

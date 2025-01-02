@@ -7,8 +7,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -32,6 +34,7 @@ public class FarmingPlusClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        //Client Packets
         ModMessages.registerS2CPackets();
 
         ShaderEffectRenderCallback.EVENT.register(tickDelta -> {
@@ -45,8 +48,18 @@ public class FarmingPlusClient implements ClientModInitializer {
             }
         });
 
+        //Block Colour Hue
+        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+            if (world != null && pos != null) {
+                return BiomeColors.getGrassColor(world, pos);
+            }
+            return 0xFFFFFF;
+        }, ModBlocks.RED_GRAPE_VINE, ModBlocks.BLUE_GRAPE_VINE, ModBlocks.WHITE_GRAPE_VINE);
+
+        //Hud Overlays
         HudRenderCallback.EVENT.register(new SaturationHudOverlay());
 
+        //Screen Handlers
         HandledScreens.register(ModScreenHandlers.FERMENTATION_BARREL_SCREEN_HANDLER, FermentationBarrelScreen::new);
 
         HandledScreens.register(ModScreenHandlers.BOTTLER_SCREEN_HANDLER, BottlerScreen::new);
@@ -55,7 +68,8 @@ public class FarmingPlusClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntities.CRUSHING_TUB_BLOCK_ENTITY, CrushingTubBlockEntityRenderer::new);
 
-        //grape fluids
+        //Grape Fluids
+
         FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_RED_GRAPE_FLUID, ModFluids.FLOWING_RED_GRAPE_FLUID,
                 new SimpleFluidRenderHandler(
                         new Identifier("minecraft:block/water_still"),
@@ -77,7 +91,7 @@ public class FarmingPlusClient implements ClientModInitializer {
                         0xC9EFBF
                 ));
 
-        //fermented wines
+        //Fermented Wines
         FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_RED_FERMENTED_WINE, ModFluids.FLOWING_RED_FERMENTED_WINE,
                 new SimpleFluidRenderHandler(
                         new Identifier("minecraft:block/water_still"),
@@ -99,7 +113,17 @@ public class FarmingPlusClient implements ClientModInitializer {
                         0x7BED7F
                 ));
 
-        //grape fluids
+        //Grape Fluids
+        BlockRenderLayerMap.INSTANCE.putFluids(
+                RenderLayer.getTranslucent(),
+                ModFluids.STILL_RED_GRAPE_FLUID,
+                ModFluids.FLOWING_RED_GRAPE_FLUID,
+                ModFluids.STILL_BLUE_GRAPE_FLUID,
+                ModFluids.FLOWING_BLUE_GRAPE_FLUID,
+                ModFluids.STILL_WHITE_GRAPE_FLUID,
+                ModFluids.FLOWING_WHITE_GRAPE_FLUID
+        );
+
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
                 ModFluids.STILL_RED_GRAPE_FLUID, ModFluids.FLOWING_RED_GRAPE_FLUID);
 
@@ -109,7 +133,7 @@ public class FarmingPlusClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
                 ModFluids.STILL_WHITE_GRAPE_FLUID, ModFluids.FLOWING_WHITE_GRAPE_FLUID);
 
-        //fermented wines
+        //Fermented Wines
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
                 ModFluids.STILL_RED_FERMENTED_WINE, ModFluids.FLOWING_RED_FERMENTED_WINE);
 
@@ -119,11 +143,30 @@ public class FarmingPlusClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
                 ModFluids.STILL_WHITE_FERMENTED_WINE, ModFluids.FLOWING_WHITE_FERMENTED_WINE);
 
-        // misc
+        //Translucency
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_RED_GRAPE_FLUID, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_RED_GRAPE_FLUID, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_BLUE_GRAPE_FLUID, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_BLUE_GRAPE_FLUID, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_WHITE_GRAPE_FLUID, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_WHITE_GRAPE_FLUID, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_RED_FERMENTED_WINE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_RED_FERMENTED_WINE, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_BLUE_FERMENTED_WINE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_BLUE_FERMENTED_WINE, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_WHITE_FERMENTED_WINE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_WHITE_FERMENTED_WINE, RenderLayer.getTranslucent());
+
+        //Cutouts
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BOTTLER, RenderLayer.getCutout());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BLUEBELL, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_BLUEBELL, RenderLayer.getCutout());
-
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RED_GRAPE_VINE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BLUE_GRAPE_VINE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_GRAPE_VINE, RenderLayer.getCutout());
     }
 }

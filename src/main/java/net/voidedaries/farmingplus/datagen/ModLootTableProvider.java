@@ -10,7 +10,9 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.voidedaries.farmingplus.block.ModBlocks;
 
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
-    public ModLootTableProvider(FabricDataOutput dataOutput) {super(dataOutput);}
+    public ModLootTableProvider(FabricDataOutput dataOutput) {
+        super(dataOutput);
+    }
 
     @Override
     public void generate() {
@@ -19,9 +21,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.SPRUCE_CRUSHING_TUB);
         addDrop(ModBlocks.SPRUCE_FERMENTATION_BARREL);
         addDrop(ModBlocks.LOAM_FARMLAND, this::createLoamFarmlandDrops);
-
-        addDrop(ModBlocks.BLUEBELL);
-        addPottedPlantDrops(ModBlocks.POTTED_BLUEBELL);
     }
 
     private LootTable.Builder createLoamFarmlandDrops(Block block) {

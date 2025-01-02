@@ -19,16 +19,35 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.FERTILISER)).entries((displayContext, entries) -> {
 
                         entries.add(ModItems.MANURE);
+                        entries.add(ModItems.SEED_BAG);
                         entries.add(ModItems.FERTILISER);
                         entries.add(ModBlocks.SILT);
                         entries.add(ModBlocks.LOAM);
+
                         entries.add(ModBlocks.LOAM_FARMLAND);
+                        entries.add(ModBlocks.NETHERRACK_FARMLAND);
+                        entries.add(ModBlocks.END_FARMLAND);
+
                         entries.add(ModBlocks.SPRUCE_CRUSHING_TUB);
                         entries.add(ModBlocks.SPRUCE_FERMENTATION_BARREL);
                         entries.add(ModBlocks.BOTTLER);
 
+                        entries.add(ModBlocks.CINDER_COMPOSTER);
+                        entries.add(ModBlocks.VOID_COMPOSTER);
+
                         entries.add(ModItems.CORK);
                         entries.add(ModItems.WINE_BOTTLE);
+
+                        entries.add(ModItems.EMBER_SHARD);
+                        entries.add(ModItems.ENDER_SHARD);
+
+                        //SCYTHES
+                        entries.add(ModItems.WOODEN_SCYTHE);
+                        entries.add(ModItems.STONE_SCYTHE);
+                        entries.add(ModItems.IRON_SCYTHE);
+                        entries.add(ModItems.GOLDEN_SCYTHE);
+                        entries.add(ModItems.DIAMOND_SCYTHE);
+                        entries.add(ModItems.NETHERITE_SCYTHE);
 
                         //WINE
                         entries.add(ModItems.BLUE_WINE);
@@ -56,10 +75,6 @@ public class ModItemGroups {
                         entries.add(ModFluids.RED_FERMENTED_FLUID_BOTTLE);
                         entries.add(ModFluids.WHITE_FERMENTED_FLUID_BOTTLE);
 
-                        //FLOWERS
-                        entries.add(ModBlocks.BLUEBELL);
-
-                        entries.add(ModItems.SEED_BAG);
 
                     }).build());
 

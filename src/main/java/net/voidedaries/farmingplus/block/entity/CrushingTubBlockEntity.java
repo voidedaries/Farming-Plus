@@ -33,7 +33,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-@SuppressWarnings("UnstableApiUsage")
 public class CrushingTubBlockEntity extends BlockEntity implements ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     private CrushingTub.GrapeFluidType fluidType = CrushingTub.GrapeFluidType.NONE;
@@ -49,8 +48,16 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
     public void setFluidType(CrushingTub.GrapeFluidType type) {
         this.fluidType = type;
         markDirty();
+        if (world != null) {
+            BlockState currentState = world.getBlockState(pos);
+            if (currentState.get(CrushingTub.FLUID_TYPE) != type) {
+                world.setBlockState(pos, currentState.with(CrushingTub.FLUID_TYPE, type));
+            }
+        }
+        markDirty();
         updateFluidLevel();
     }
+
 
     public CrushingTub.GrapeFluidType getFluidType() {
         return fluidType;
@@ -63,14 +70,24 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         } else if (this.fluidType != type) {
             return;
         }
+
         setGrapeFluidAmount(this.grapeFluidAmount + amount);
 
-        if (this.grapeFluidAmount == 0) {
-            setFluidType(CrushingTub.GrapeFluidType.NONE);
+        updateFluidLevel();
+
+        if (this.world != null) {
+            BlockState currentState = this.world.getBlockState(this.pos);
+            int calculatedFluidLevel = calculateFluidLevel();
+
+            BlockState updatedState = currentState
+                    .with(CrushingTub.FLUID_TYPE, this.fluidType)
+                    .with(CrushingTub.FLUID_LEVEL, calculatedFluidLevel);
+
+            if (!currentState.equals(updatedState)) {
+                this.world.setBlockState(this.pos, updatedState, Block.NOTIFY_ALL);
+            }
         }
     }
-
-
 
     public void setGrapeFluidAmount(int amount) {
         this.grapeFluidAmount = Math.min(amount, MAX_GRAPE_FLUID);
@@ -82,7 +99,6 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         markDirty();
         updateFluidLevel();
     }
-
 
     public int getGrapeFluidAmount() {
         return this.grapeFluidAmount;
@@ -127,17 +143,16 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         if (this.world != null) {
             int fluidLevel = calculateFluidLevel();
             BlockState currentState = this.world.getBlockState(this.pos);
-            int currentFluidLevel = currentState.get(CrushingTub.FLUID_LEVEL);
             CrushingTub.GrapeFluidType currentFluidType = currentState.get(CrushingTub.FLUID_TYPE);
 
-            if (fluidLevel == 0 && this.fluidType != CrushingTub.GrapeFluidType.NONE) {
+            if (fluidLevel == 0) {
                 this.fluidType = CrushingTub.GrapeFluidType.NONE;
             }
 
-            if (fluidLevel != currentFluidLevel || fluidType != currentFluidType) {
+            if (fluidLevel != currentState.get(CrushingTub.FLUID_LEVEL) || fluidType != currentFluidType) {
                 this.world.setBlockState(this.pos, currentState
                         .with(CrushingTub.FLUID_LEVEL, fluidLevel)
-                        .with(CrushingTub.FLUID_TYPE, fluidType), Block.NOTIFY_ALL);
+                        .with(CrushingTub.FLUID_TYPE, this.fluidType), Block.NOTIFY_ALL);
             }
         }
     }

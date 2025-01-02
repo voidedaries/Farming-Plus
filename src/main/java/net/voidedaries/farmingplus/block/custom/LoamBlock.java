@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -24,15 +24,15 @@ public class LoamBlock extends Block {
     @SuppressWarnings("deprecation")
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack stack = player.getStackInHand(hand);
 
-        if (itemStack.getItem() == Items.WOODEN_HOE || itemStack.getItem() == Items.STONE_HOE || itemStack.getItem() == Items.IRON_HOE || itemStack.getItem() == Items.GOLDEN_HOE || itemStack.getItem() == Items.DIAMOND_HOE || itemStack.getItem() == Items.NETHERITE_HOE) {
+        if (stack.getItem() instanceof HoeItem) {
             if (world.isClient) {
                 return ActionResult.SUCCESS;
             } else {
                 world.playSound(null, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 if (!player.isCreative()) {
-                    itemStack.damage(1, player, (p) -> p.sendToolBreakStatus(hand));
+                    stack.damage(1, player, (p) -> p.sendToolBreakStatus(hand));
                 }
                 world.setBlockState(pos, ModBlocks.LOAM_FARMLAND.getDefaultState().with(FarmlandBlock.MOISTURE, 0), 11);
                 return ActionResult.CONSUME;

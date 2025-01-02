@@ -30,6 +30,5 @@
     "recipes": [
       "minecraft:spruce_crushing_tub"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

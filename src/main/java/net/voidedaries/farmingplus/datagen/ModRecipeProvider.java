@@ -6,8 +6,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.voidedaries.farmingplus.block.ModBlocks;
 import net.voidedaries.farmingplus.item.ModItems;
@@ -20,6 +23,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
+
+        SmithingTransformRecipeJsonBuilder.create(
+                Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                Ingredient.ofItems(ModItems.DIAMOND_SCYTHE),
+                Ingredient.ofItems(Items.NETHERITE_INGOT),
+                RecipeCategory.TOOLS,
+                ModItems.NETHERITE_SCYTHE
+        )
+                .criterion("has_diamond_scythe", conditionsFromItem(ModItems.DIAMOND_SCYTHE))
+                .criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_SCYTHE)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.LOAM, 4)
                 .pattern(" # ")
@@ -86,17 +100,91 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.BUCKET), conditionsFromItem(Items.BUCKET))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.SPRUCE_FERMENTATION_BARREL)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.FERTILISER, 1)
-                .pattern("ML")
-                .pattern("DB")
-                .input('M', ModItems.MANURE)
-                .input('L', Items.OAK_LEAVES)
-                .input('B', Items.BONE_MEAL)
-                .input('D', Items.DIRT)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.FERTILISER, 1)
+                .input(ModItems.MANURE)
+                .input(Items.BONE_MEAL)
+                .input(Items.DIRT)
+                .input(ItemTags.LEAVES)
                 .criterion(hasItem(ModItems.MANURE), conditionsFromItem(ModItems.MANURE))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.FERTILISER)));
 
+        //COMPOSTERS
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.CINDER_COMPOSTER, 1)
+                .pattern("EOE")
+                .pattern("NCN")
+                .pattern("EOE")
+                .input('E', ModItems.EMBER_SHARD)
+                .input('N', Blocks.NETHER_BRICKS)
+                .input('O', Blocks.CRYING_OBSIDIAN)
+                .input('C', Blocks.COMPOSTER)
+                .criterion(hasItem(ModBlocks.CINDER_COMPOSTER), conditionsFromItem(ModBlocks.CINDER_COMPOSTER))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.CINDER_COMPOSTER)));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.VOID_COMPOSTER, 1)
+                .pattern("EPE")
+                .pattern("SCS")
+                .pattern("EPE")
+                .input('E', ModItems.ENDER_SHARD)
+                .input('S', Blocks.END_STONE_BRICKS)
+                .input('P', Blocks.PURPUR_BLOCK)
+                .input('C', Blocks.COMPOSTER)
+                .criterion(hasItem(ModBlocks.VOID_COMPOSTER), conditionsFromItem(ModBlocks.VOID_COMPOSTER))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.VOID_COMPOSTER)));
+
+        //SCYTHES
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.WOODEN_SCYTHE, 1)
+                .pattern("PP ")
+                .pattern(" SP")
+                .pattern("S  ")
+                .input('P', ItemTags.PLANKS)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModItems.WOODEN_SCYTHE), conditionsFromItem(ModItems.WOODEN_SCYTHE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.WOODEN_SCYTHE)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.STONE_SCYTHE, 1)
+                .pattern("CC ")
+                .pattern(" SC")
+                .pattern("S  ")
+                .input('C', Items.COBBLESTONE)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModItems.STONE_SCYTHE), conditionsFromItem(ModItems.STONE_SCYTHE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.STONE_SCYTHE)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.IRON_SCYTHE, 1)
+                .pattern("II ")
+                .pattern(" SI")
+                .pattern("S  ")
+                .input('I', Items.IRON_INGOT)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModItems.IRON_SCYTHE), conditionsFromItem(ModItems.IRON_SCYTHE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.IRON_SCYTHE)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.GOLDEN_SCYTHE, 1)
+                .pattern("GG ")
+                .pattern(" SG")
+                .pattern("S  ")
+                .input('G', Items.GOLD_INGOT)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModItems.GOLDEN_SCYTHE), conditionsFromItem(ModItems.GOLDEN_SCYTHE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.GOLDEN_SCYTHE)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.DIAMOND_SCYTHE, 1)
+                .pattern("DD ")
+                .pattern(" SD")
+                .pattern("S  ")
+                .input('D', Items.DIAMOND)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModItems.DIAMOND_SCYTHE), conditionsFromItem(ModItems.DIAMOND_SCYTHE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.DIAMOND_SCYTHE)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.NETHERITE_SCYTHE, 1)
+                .pattern("NN ")
+                .pattern(" SN")
+                .pattern("S  ")
+                .input('N', Items.NETHERITE_INGOT)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModItems.NETHERITE_SCYTHE), conditionsFromItem(ModItems.NETHERITE_SCYTHE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_SCYTHE) + "_shaped"));
 
     }
 }

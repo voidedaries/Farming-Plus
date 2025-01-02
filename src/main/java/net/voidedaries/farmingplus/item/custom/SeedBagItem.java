@@ -30,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.voidedaries.farmingplus.FarmingPlus;
 import net.voidedaries.farmingplus.block.ModBlocks;
+import net.voidedaries.farmingplus.mixin.SimpleInventoryAccessor;
 import net.voidedaries.farmingplus.screen.SeedBagScreenHandler;
 import net.voidedaries.farmingplus.util.ModTags;
 import org.jetbrains.annotations.Nullable;
@@ -152,7 +153,7 @@ public class SeedBagItem extends Item {
             public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
                 Inventory inventory = new SimpleInventory(inventoryData.toArray(new ItemStack[0])) {
                     {
-                        this.addListener(inventory -> writeNbt(stack, this.stacks));
+                        this.addListener(inventory -> writeNbt(stack, ((SimpleInventoryAccessor) (Object)this).getHeldStacks()));
                     }
                 };
                 return new SeedBagScreenHandler(syncId, playerInventory, inventory);

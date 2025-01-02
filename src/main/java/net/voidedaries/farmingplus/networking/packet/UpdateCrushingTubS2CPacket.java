@@ -24,6 +24,7 @@ public class UpdateCrushingTubS2CPacket {
         buf.writeBlockPos(entity.getPos());
         buf.writeItemStack(entity.getStack(CrushingTubBlockEntity.SLOT_1));
         buf.writeInt(entity.getGrapeFluidAmount());
+        buf.writeEnumConstant(entity.getFluidType());
         ServerPlayNetworking.send(player, ID, buf);
 
     }
@@ -33,15 +34,22 @@ public class UpdateCrushingTubS2CPacket {
         BlockPos pos = buf.readBlockPos();
         ItemStack stack = buf.readItemStack();
         int fluidLevel = buf.readInt();
+        CrushingTub.GrapeFluidType fluidType = buf.readEnumConstant(CrushingTub.GrapeFluidType.class);
 
         client.execute(() -> {
-            if (client.world != null && client.world.getBlockEntity(pos) instanceof CrushingTubBlockEntity blockEntity) {
+            if (client.world != null && client.world.getBlockEntity(pos) instanceof
+                    CrushingTubBlockEntity blockEntity) {
+
                 blockEntity.setStack(CrushingTubBlockEntity.SLOT_1, stack);
                 blockEntity.setGrapeFluidAmount(fluidLevel);
 
+                blockEntity.setFluidType(fluidType);
+
                 BlockState currentState = client.world.getBlockState(pos);
                 int calculatedFluidLevel = blockEntity.calculateFluidLevel();
-                BlockState newState = currentState.with(CrushingTub.FLUID_LEVEL, calculatedFluidLevel);
+                BlockState newState = currentState
+                        .with(CrushingTub.FLUID_LEVEL, calculatedFluidLevel)
+                        .with(CrushingTub.FLUID_TYPE, fluidType);
 
                 if (!newState.equals(currentState)) {
                     client.world.setBlockState(pos, newState, Block.NOTIFY_LISTENERS | Block.NOTIFY_ALL);

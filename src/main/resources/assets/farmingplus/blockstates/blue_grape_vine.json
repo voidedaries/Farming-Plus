@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "age=1": { "model": "farmingplus:block/grape_vine/blue_grape_vine" },
+    "age=0": { "model": "farmingplus:block/grape_vine/blue_grape_vine" },
+    "age=2": { "model": "farmingplus:block/grape_vine/blue_grape_vine" },
+    "age=3": { "model": "farmingplus:block/grape_vine/blue_grape_vine_mature" }
+  }
+}

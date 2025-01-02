@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:seed_bag"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

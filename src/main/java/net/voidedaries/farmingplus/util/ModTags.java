@@ -10,8 +10,9 @@ import net.voidedaries.farmingplus.FarmingPlus;
 
 public class ModTags {
     public static class Blocks {
+        public static final TagKey<Block> SCYTHE_MINEABLE = createTag("scythe_mineable");
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings({"unused", "SameParameterValue"})
         private static TagKey<Block> createTag(String name) {
             return TagKey.of(RegistryKeys.BLOCK, new Identifier(FarmingPlus.MOD_ID, name));
         }

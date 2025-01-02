@@ -1,5 +1,6 @@
 package net.voidedaries.farmingplus.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -30,7 +31,7 @@ public class BottlerBlock extends BlockWithEntity implements BlockEntityProvider
             VoxelShapes.cuboid(0.5625, 0, 0.0625, 0.9375, 0.125, 0.4375),
             VoxelShapes.cuboid(0.0625, 0, 0.0625, 0.4375, 0.125, 0.4375),
             VoxelShapes.cuboid(0.0625, 0, 0.5625, 0.4375, 0.125, 0.9375)
-            );
+    );
 
     public BottlerBlock(Settings settings) {
         super(settings);
@@ -90,5 +91,10 @@ public class BottlerBlock extends BlockWithEntity implements BlockEntityProvider
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.BOTTLER_BLOCK_ENTITY,
                 ((world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1, blockEntity)));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(BottlerBlock::new);
     }
 }

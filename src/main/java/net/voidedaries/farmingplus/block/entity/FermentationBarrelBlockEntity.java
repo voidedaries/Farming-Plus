@@ -34,7 +34,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-@SuppressWarnings("UnstableApiUsage")
 public class FermentationBarrelBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
@@ -155,7 +154,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements Extend
 
     @Override
     public Text getDisplayName() {
-        return Text.literal("Fermentation Barrel");
+        return Text.translatable("gui.farmingplus.fermentation_barrel");
     }
 
     @Nullable

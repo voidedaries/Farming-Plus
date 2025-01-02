@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:wooden_scythe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wooden_scythe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "farmingplus:wooden_scythe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wooden_scythe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:wooden_scythe"
+    ]
+  }
+}

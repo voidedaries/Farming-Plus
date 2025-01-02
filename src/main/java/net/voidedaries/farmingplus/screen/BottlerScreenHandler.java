@@ -13,7 +13,6 @@ import net.minecraft.screen.slot.Slot;
 import net.voidedaries.farmingplus.block.entity.BottlerBlockEntity;
 import net.voidedaries.farmingplus.util.FluidStack;
 
-@SuppressWarnings("UnstableApiUsage")
 public class BottlerScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
@@ -37,7 +36,7 @@ public class BottlerScreenHandler extends ScreenHandler {
                 ((BottlerBlockEntity) blockEntity).fluidStorage.amount);
 
         //Cork Slot
-        this.addSlot(new Slot(inventory, 0, 8, 18));
+        this.addSlot(new Slot(inventory, 0, 26, 36));
 
         //Bucket Slot
         this.addSlot(new Slot(inventory, 1, 134, 18));

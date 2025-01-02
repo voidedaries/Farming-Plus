@@ -36,7 +36,6 @@ import net.voidedaries.farmingplus.util.ModTags;
 import org.jetbrains.annotations.Nullable;
 
 
-@SuppressWarnings("UnstableApiUsage")
 public class BottlerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
 
@@ -144,7 +143,7 @@ public class BottlerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public Text getDisplayName() {
-        return Text.literal("Bottler");
+        return Text.translatable("gui.farmingplus.bottler");
     }
 
     @Override

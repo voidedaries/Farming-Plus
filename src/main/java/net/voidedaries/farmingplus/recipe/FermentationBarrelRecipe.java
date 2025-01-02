@@ -75,7 +75,7 @@ public class FermentationBarrelRecipe implements Recipe<SimpleInventory> {
 
         public static final Codec<FermentationBarrelRecipe> CODEC = RecordCodecBuilder.create(in -> in.group(
         validateAmount(Ingredient.DISALLOW_EMPTY_CODEC, 9).fieldOf("ingredients").forGetter(FermentationBarrelRecipe::getIngredients),
-                RecipeCodecs.CRAFTING_RESULT.fieldOf("output").forGetter(r -> r.output)
+                ItemStack.RECIPE_RESULT_CODEC.fieldOf("output").forGetter(r -> r.output)
                 ).apply(in, FermentationBarrelRecipe::new));
 
         @SuppressWarnings("SameParameterValue")

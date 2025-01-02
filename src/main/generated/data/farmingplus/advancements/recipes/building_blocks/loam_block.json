@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:loam_block"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

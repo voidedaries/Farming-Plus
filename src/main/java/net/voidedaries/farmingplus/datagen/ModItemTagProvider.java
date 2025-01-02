@@ -17,5 +17,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(ModTags.Items.SEED_BAG_ACCEPTABLE)
             .add(Items.POTATO, Items.CARROT, Items.BEETROOT_SEEDS, Items.WHEAT_SEEDS);
+
     }
 }

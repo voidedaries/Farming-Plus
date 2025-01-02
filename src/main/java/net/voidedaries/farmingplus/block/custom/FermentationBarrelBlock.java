@@ -1,5 +1,6 @@
 package net.voidedaries.farmingplus.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -98,4 +99,10 @@ public class FermentationBarrelBlock extends BlockWithEntity implements BlockEnt
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.FERMENTATION_BARREL_BLOCK_ENTITY, FermentationBarrelBlockEntity::tick);
     }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(FermentationBarrelBlock::new);
+    }
+
 }

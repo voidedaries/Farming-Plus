@@ -22,7 +22,6 @@ import net.voidedaries.farmingplus.util.MouseUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("UnstableApiUsage")
 public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(FarmingPlus.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
     private FluidStackRenderer primaryfluidStackRenderer;
@@ -36,6 +35,7 @@ public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelSc
     protected void init() {
         super.init();
         titleY = 6;
+        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         playerInventoryTitleY = 72;
         assignFluidStackRenderers();
 
@@ -44,7 +44,7 @@ public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelSc
                 new Identifier("farmingplus", "textures/gui/fermentation_barrel_gui.png"),
                 176, 28,
                 185,28,
-                Text.literal("Clear Fluid"),
+                Text.translatable("gui.farmingplus.fermentation_barrel_clear_widget"),
                 button -> clearSecondaryFluidStorage()
         ));
     }
@@ -71,6 +71,7 @@ public class FermentationBarrelScreen extends HandledScreen<FermentationBarrelSc
 
         renderFluidTooltip(context, mouseX, mouseY, x, y, handler.primaryfluidStack, 61, 18, primaryfluidStackRenderer);
         renderFluidTooltip(context, mouseX, mouseY, x, y, handler.secondaryFluidStack, 97, 18, secondaryFluidStackRenderer);
+        super.drawForeground(context, mouseX, mouseY);
     }
 
     @SuppressWarnings("SameParameterValue")

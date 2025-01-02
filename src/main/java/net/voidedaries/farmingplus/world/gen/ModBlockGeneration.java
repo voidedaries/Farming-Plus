@@ -17,6 +17,29 @@ public class ModBlockGeneration {
                         context.getBiomeKey().equals(BiomeKeys.TAIGA) ||
                         context.getBiomeKey().equals(BiomeKeys.DARK_FOREST),
                 GenerationStep.Feature.LOCAL_MODIFICATIONS, ModPlacedFeatures.SILT_BLOCK_PLACED_KEY);
+
+        generateGrapeVines();
+    }
+
+    private static void generateGrapeVines() {
+        BiomeModifications.addFeature(
+                context -> context.getBiomeKey().equals(BiomeKeys.PLAINS) ||
+                        context.getBiomeKey().equals(BiomeKeys.FOREST) ||
+                        context.getBiomeKey().equals(BiomeKeys.SAVANNA),
+                GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.RED_GRAPE_VINE_PLACED_KEY);
+
+        BiomeModifications.addFeature(
+                context -> context.getBiomeKey().equals(BiomeKeys.DARK_FOREST) ||
+                        context.getBiomeKey().equals(BiomeKeys.BIRCH_FOREST) ||
+                        context.getBiomeKey().equals(BiomeKeys.WINDSWEPT_HILLS),
+                GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BLUE_GRAPE_VINE_PLACED_KEY);
+
+        BiomeModifications.addFeature(
+                context -> context.getBiomeKey().equals(BiomeKeys.MEADOW) ||
+                        context.getBiomeKey().equals(BiomeKeys.PLAINS) ||
+                        context.getBiomeKey().equals(BiomeKeys.SNOWY_TAIGA) ||
+                        context.getBiomeKey().equals(BiomeKeys.SNOWY_PLAINS),
+                GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.WHITE_GRAPE_VINE_PLACED_KEY);
     }
 
 }
