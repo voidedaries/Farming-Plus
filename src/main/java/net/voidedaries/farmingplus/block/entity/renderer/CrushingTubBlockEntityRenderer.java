@@ -29,9 +29,7 @@ public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<Crush
     }
 
     @Override
-    public void render(CrushingTubBlockEntity entity, float tickDelta, MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
+    public void render(CrushingTubBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (entity.getWorld() == null || entity.getCachedState() == null) return;
 
         ItemStack stack = entity.getRenderStack();
@@ -51,7 +49,9 @@ public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<Crush
                     OverlayTexture.DEFAULT_UV,
                     matrices,
                     vertexConsumers,
-                    entity.getWorld(), 1);
+                    entity.getWorld(),
+                    1
+            );
 
             matrices.pop();
         }
@@ -62,15 +62,16 @@ public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<Crush
         }
     }
 
-    private void renderFluid(Fluid fluid, BlockPos pos,CrushingTubBlockEntity entity, MatrixStack matrices,
-                             VertexConsumerProvider vertexConsumers, World world) {
+    private void renderFluid(Fluid fluid, BlockPos pos,CrushingTubBlockEntity entity, MatrixStack matrices,VertexConsumerProvider vertexConsumers, World world) {
         if (fluid == null) return;
 
         BlockState state = world.getBlockState(pos);
         if (!state.isOf(entity.getCachedState().getBlock())) return;
+
         int fluidLevel = state.get(CrushingTub.FLUID_LEVEL);
 
-        float fluidHeight = (fluidLevel / 16.0f) * 0.875f;
+        float maxFluidHeight = 7 / 16f;
+        float fluidHeight = Math.min((fluidLevel / 16.0f) * 1.1f, maxFluidHeight);
 
         var fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
         if (fluidRenderHandler == null) return;
@@ -83,12 +84,12 @@ public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<Crush
         int b = color & 0xFF;
         int a = 192;
 
-
         matrices.push();
         matrices.translate(0, fluidHeight, 0);
         matrices.scale(1.0f, 1.0f, 1.0f);
 
         var buffer = vertexConsumers.getBuffer(RenderLayer.getTranslucent());
+
         buffer.vertex(matrices.peek().getPositionMatrix(), 0, 0, 1).color(r, g, b, a)
                 .texture(sprite.getMinU(), sprite.getMinV()).light(LightmapTextureManager.MAX_BLOCK_LIGHT_COORDINATE)
                 .normal(matrices.peek().getNormalMatrix(), 0, 1, 0).next();
@@ -103,8 +104,8 @@ public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<Crush
                 .normal(matrices.peek().getNormalMatrix(), 0, 1, 0).next();
 
         matrices.pop();
-
     }
+
     public static Fluid getFluidType(CrushingTub.GrapeFluidType fluidType) {
          return switch (fluidType) {
             case RED -> ModFluids.STILL_RED_GRAPE_FLUID;
@@ -113,7 +114,6 @@ public class CrushingTubBlockEntityRenderer implements BlockEntityRenderer<Crush
             case NONE -> null;
         };
     }
-
     private int getLightLevel(World world, BlockPos pos) {
         int bLight = world.getLightLevel(LightType.BLOCK, pos);
         int sLight = world.getLightLevel(LightType.SKY, pos);

@@ -24,6 +24,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.voidedaries.farmingplus.block.custom.CrushingTub;
 import net.voidedaries.farmingplus.fluid.ModFluids;
@@ -38,7 +39,6 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
     private CrushingTub.GrapeFluidType fluidType = CrushingTub.GrapeFluidType.NONE;
     private static final int MAX_GRAPE_FLUID = 1000;
     private int grapeFluidAmount = 0;
-
     public static final int SLOT_1 = 0;
 
     public CrushingTubBlockEntity(BlockPos pos, BlockState state) {
@@ -46,23 +46,22 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
     }
 
     public void setFluidType(CrushingTub.GrapeFluidType type) {
+        if (this.fluidType == type) return;
+
         this.fluidType = type;
         markDirty();
+
         if (world != null) {
             BlockState currentState = world.getBlockState(pos);
-            if (currentState.get(CrushingTub.FLUID_TYPE) != type) {
-                world.setBlockState(pos, currentState.with(CrushingTub.FLUID_TYPE, type));
-            }
+            world.setBlockState(pos, currentState.with(CrushingTub.FLUID_TYPE, type), Block.NOTIFY_ALL);
         }
-        markDirty();
+
         updateFluidLevel();
     }
-
 
     public CrushingTub.GrapeFluidType getFluidType() {
         return fluidType;
     }
-
 
     public void addGrapeFluid(int amount, CrushingTub.GrapeFluidType type) {
         if (this.fluidType == CrushingTub.GrapeFluidType.NONE) {
@@ -71,28 +70,18 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
             return;
         }
 
-        setGrapeFluidAmount(this.grapeFluidAmount + amount);
-
-        updateFluidLevel();
-
-        if (this.world != null) {
-            BlockState currentState = this.world.getBlockState(this.pos);
-            int calculatedFluidLevel = calculateFluidLevel();
-
-            BlockState updatedState = currentState
-                    .with(CrushingTub.FLUID_TYPE, this.fluidType)
-                    .with(CrushingTub.FLUID_LEVEL, calculatedFluidLevel);
-
-            if (!currentState.equals(updatedState)) {
-                this.world.setBlockState(this.pos, updatedState, Block.NOTIFY_ALL);
-            }
+        int newFluidAmount = Math.min(this.grapeFluidAmount + amount, MAX_GRAPE_FLUID);
+        if (newFluidAmount != this.grapeFluidAmount) {
+            this.grapeFluidAmount = newFluidAmount;
+            markDirty();
+            updateFluidLevel();
         }
     }
 
     public void setGrapeFluidAmount(int amount) {
         this.grapeFluidAmount = Math.min(amount, MAX_GRAPE_FLUID);
 
-        if (this.grapeFluidAmount == 0) {
+        if (this.grapeFluidAmount == 0 && this.fluidType != CrushingTub.GrapeFluidType.NONE) {
             setFluidType(CrushingTub.GrapeFluidType.NONE);
         }
 
@@ -140,24 +129,17 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
 
 
     public void updateFluidLevel() {
-        if (this.world != null) {
-            int fluidLevel = calculateFluidLevel();
-            BlockState currentState = this.world.getBlockState(this.pos);
-            CrushingTub.GrapeFluidType currentFluidType = currentState.get(CrushingTub.FLUID_TYPE);
+        if (world == null) return;
 
-            if (fluidLevel == 0) {
-                this.fluidType = CrushingTub.GrapeFluidType.NONE;
-            }
+        int fluidLevel = calculateFluidLevel();
+        BlockState currentState = world.getBlockState(pos);
+        BlockState updatedState = currentState.with(CrushingTub.FLUID_LEVEL, fluidLevel);
 
-            if (fluidLevel != currentState.get(CrushingTub.FLUID_LEVEL) || fluidType != currentFluidType) {
-                this.world.setBlockState(this.pos, currentState
-                        .with(CrushingTub.FLUID_LEVEL, fluidLevel)
-                        .with(CrushingTub.FLUID_TYPE, this.fluidType), Block.NOTIFY_ALL);
-            }
+        if (!currentState.equals(updatedState)) {
+            world.setBlockState(pos, updatedState, Block.NOTIFY_ALL);
         }
     }
-
-
+    // no mutations
     public int calculateFluidLevel() {
         return grapeFluidAmount * 8 / MAX_GRAPE_FLUID;
     }
@@ -215,6 +197,12 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         if (world != null) {
             world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
         }
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            for (ServerPlayerEntity player : serverWorld.getChunkManager()
+                    .threadedAnvilChunkStorage.getPlayersWatchingChunk(new ChunkPos(this.getPos()))) {
+                player.networkHandler.sendPacket(BlockEntityUpdateS2CPacket.create(this));
+            }
+        }
     }
 
     @Override
@@ -227,6 +215,7 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
         nbt.putInt("grapeFluidAmount", grapeFluidAmount);
+        nbt.putInt("grapeFluidType", this.fluidType.ordinal());
     }
 
     @Override
@@ -234,6 +223,7 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
         grapeFluidAmount = nbt.getInt("grapeFluidAmount");
+        fluidType = CrushingTub.GrapeFluidType.values()[nbt.getInt("grapeFluidType")];
     }
 
     public void tick(World world, BlockPos pos, BlockState state, CrushingTubBlockEntity entity) {
@@ -267,5 +257,8 @@ public class CrushingTubBlockEntity extends BlockEntity implements ImplementedIn
         markDirty();
     }
 
+    public boolean isRemoved() {
+        return this.removed;
+    }
 
 }

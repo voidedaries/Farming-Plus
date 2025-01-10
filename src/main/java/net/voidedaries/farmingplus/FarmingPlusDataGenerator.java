@@ -14,11 +14,13 @@ public class FarmingPlusDataGenerator implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
 		pack.addProvider(ModEnglishLangProvider::new);
+		pack.addProvider(ModAdvancementProvider::new);
 		pack.addProvider(ModLootTableProvider::new);
-		pack.addProvider(ModRecipeProvider::new);
-		pack.addProvider(ModWorldGenerator::new);
+		pack.addProvider(ModEntityTagProvider::new);
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
+		pack.addProvider(ModRecipeProvider::new);
+		pack.addProvider(ModWorldGenerator::new);
 		pack.addProvider(ModModelProvider::new);
 	}
 

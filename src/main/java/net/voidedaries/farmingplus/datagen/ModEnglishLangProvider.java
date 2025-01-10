@@ -41,6 +41,10 @@ public class ModEnglishLangProvider extends FabricLanguageProvider {
         translationBuilder.add("item.farmingplus.blue_wine", "Blue Wine");
         translationBuilder.add("item.farmingplus.white_wine", "White Wine");
 
+        translationBuilder.add("item.farmingplus.cherries", "Cherries");
+        translationBuilder.add("block.farmingplus.cherry_fruit_leaves", "Cherry Fruit Leaves");
+        translationBuilder.add("item.farmingplus.golden_cherries", "Golden Cherries");
+
             //GRAPES
         translationBuilder.add("item.farmingplus.red_grapes", "Red Grapes");
         translationBuilder.add("item.farmingplus.blue_grapes", "Blue Grapes");

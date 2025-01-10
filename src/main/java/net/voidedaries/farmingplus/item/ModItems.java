@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.voidedaries.farmingplus.FarmingPlus;
 import net.voidedaries.farmingplus.block.ModBlocks;
 import net.voidedaries.farmingplus.item.custom.FertiliserItem;
@@ -14,6 +15,7 @@ import net.voidedaries.farmingplus.item.custom.SeedBagItem;
 import net.voidedaries.farmingplus.item.custom.WineItem;
 
 public class ModItems {
+
     public static final Item MANURE = registerItem("manure",
             new Item(new FabricItemSettings()));
     public static final Item FERTILISER = registerItem("fertiliser",
@@ -36,6 +38,11 @@ public class ModItems {
             new AliasedBlockItem(ModBlocks.WHITE_GRAPE_VINE,new FabricItemSettings().food(ModFoodComponents.GRAPES)));
     public static final Item BLUE_GRAPES = registerItem("blue_grapes",
             new AliasedBlockItem(ModBlocks.BLUE_GRAPE_VINE,new FabricItemSettings().food(ModFoodComponents.GRAPES)));
+
+    public static final Item CHERRIES = registerItem("cherries",
+            new Item(new FabricItemSettings().food(ModFoodComponents.CHERRIES)));
+    public static final Item GOLDEN_CHERRIES = registerItem("golden_cherries",
+            new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON).food(ModFoodComponents.GOLDEN_CHERRIES)));
 
     public static final Item EMBER_SHARD = registerItem("ember_shard",
             new Item(new FabricItemSettings()));

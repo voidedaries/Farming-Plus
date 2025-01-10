@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "farmingplus:block/cherry_fruit_leaves"
+  }
+}

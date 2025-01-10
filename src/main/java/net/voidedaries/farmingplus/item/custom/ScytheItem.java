@@ -14,8 +14,18 @@ import net.voidedaries.farmingplus.item.ModToolMaterials;
 import net.voidedaries.farmingplus.util.ModTags;
 
 import java.util.List;
+import java.util.Map;
 
 public class ScytheItem extends MiningToolItem {
+
+    private static final Map<ToolMaterial, List<String>> AOE_PATTERNS = Map.of(
+            ModToolMaterials.WOOD, List.of(" # "),
+            ModToolMaterials.STONE, List.of(" # ", "###", " # "),
+            ModToolMaterials.IRON, List.of("###", "###", "###"),
+            ModToolMaterials.GOLD, List.of(" ## ", "####", "####", " ## "),
+            ModToolMaterials.DIAMOND, List.of(" ### ", "#####", "#####", "#####", " ### "),
+            ModToolMaterials.NETHERITE, List.of(" #### ", "######", "######", "######", "######", " #### ")
+    );
 
     public ScytheItem(ToolMaterial material, int attackDamage, float attackSpeed, Item.Settings settings) {
         super(attackDamage, attackSpeed, material, ModTags.Blocks.SCYTHE_MINEABLE, settings);
@@ -30,7 +40,7 @@ public class ScytheItem extends MiningToolItem {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
+        BlockPos origin = context.getBlockPos();
         PlayerEntity player = context.getPlayer();
         ItemStack stack = context.getStack();
 
@@ -38,23 +48,31 @@ public class ScytheItem extends MiningToolItem {
             return ActionResult.PASS;
         }
 
-        int range = getAoERange(stack);
+        List<String> pattern = AOE_PATTERNS.getOrDefault(((ScytheItem) stack.getItem()).getMaterial(),
+                List.of(" # "));
 
-        for (int dx = -range; dx <= range; dx++) {
-            for (int dz = -range; dz <= range; dz++) {
-                BlockPos targetPos = pos.add(dx, 0, dz);
-                BlockState targetState = world.getBlockState(targetPos);
+        int centreX = pattern.get(0).length() / 2;
+        int centreZ = pattern.size() / 2;
 
-                if (targetState.getBlock() instanceof CropBlock cropBlock && cropBlock.isMature(targetState)) {
-                    if (!world.isClient) {
-                        List<ItemStack> drops = Block.getDroppedStacks(targetState, (ServerWorld) world, targetPos, world.getBlockEntity(targetPos));
-                        for (ItemStack drop : drops) {
-                            Block.dropStack(world, targetPos, drop);
+        for (int z = 0; z < pattern.size(); z++) {
+            String row = pattern.get(z);
+            for (int x = 0; x < row.length(); x++) {
+                if (row.charAt(x) == '#') {
+                    BlockPos targetPos = origin.add(x - centreX, 0, z - centreZ);
+                    BlockState targetState = world.getBlockState(targetPos);
+
+                    if (targetState.getBlock() instanceof CropBlock cropBlock && cropBlock.isMature(targetState)) {
+                        if (!world.isClient) {
+                            List<ItemStack> drops = Block.getDroppedStacks(targetState, (ServerWorld) world, targetPos,
+                                    world.getBlockEntity(targetPos));
+                            for (ItemStack drop : drops) {
+                                Block.dropStack(world, targetPos, drop);
+                            }
+
+                            world.setBlockState(targetPos, cropBlock.withAge(0));
+
+                            stack.damage(1, player, (p) -> p.sendToolBreakStatus(context.getHand()));
                         }
-
-                        world.setBlockState(targetPos, cropBlock.withAge(0));
-
-                        stack.damage(1, player, (p) -> p.sendToolBreakStatus(context.getHand()));
                     }
                 }
             }
@@ -62,23 +80,5 @@ public class ScytheItem extends MiningToolItem {
 
         return ActionResult.SUCCESS;
     }
-
-    private int getAoERange(ItemStack stack) {
-        Item item = stack.getItem();
-
-        if (item instanceof ScytheItem) {
-            ToolMaterial material = ((ScytheItem) item).getMaterial();
-
-            if (material == ModToolMaterials.WOOD) return 0; // 1x1
-            if (material == ModToolMaterials.STONE) return 1; // 2x2
-            if (material == ModToolMaterials.IRON) return 2; // 3x3
-            if (material == ModToolMaterials.GOLD) return 3; // 5x5
-            if (material == ModToolMaterials.DIAMOND) return 3; // 4x4
-            if (material == ModToolMaterials.NETHERITE) return 4; // 6x6
-        }
-
-        return 0;
-    }
-
 
 }

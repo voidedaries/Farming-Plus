@@ -35,6 +35,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_SCYTHE)));
 
+
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.LOAM, 4)
                 .pattern(" # ")
                 .pattern("SCS")
@@ -73,6 +75,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('G', Items.GLASS_PANE)
                 .criterion(hasItem(Items.GLASS_PANE), conditionsFromItem(Items.GLASS_PANE))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.WINE_BOTTLE)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.GOLDEN_CHERRIES, 1)
+                .pattern("GGG")
+                .pattern("GCG")
+                .pattern("GGG")
+                .input('G', Items.GOLD_NUGGET)
+                .input('C', ModItems.CHERRIES)
+                .criterion(hasItem(Items.GOLD_NUGGET), conditionsFromItem(Items.GOLD_NUGGET))
+                .criterion(hasItem(ModItems.CHERRIES), conditionsFromItem(ModItems.CHERRIES))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.GOLDEN_CHERRIES)));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModItems.CORK, 2)
                 .input(Blocks.OAK_SLAB)

@@ -22,8 +22,20 @@ public class ModBlocks {
     public static final Block NETHERRACK_FARMLAND = registerBlock("netherrack_farmland",
             new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.NETHERRACK));
 
+    public static final Block SOUL_SAND_FARMLAND = registerBlock("soul_sand_farmland",
+            new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.SOUL_SAND));
+
+    public static final Block CRIMSON_NYLIUM_FARMLAND = registerBlock("crimson_nylium_farmland",
+            new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.CRIMSON_NYLIUM));
+
+    public static final Block WARPED_NYLIUM_FARMLAND = registerBlock("warped_nylium_farmland",
+            new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.WARPED_NYLIUM));
+
     public static final Block END_FARMLAND = registerBlock("end_farmland",
             new CustomFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND), Blocks.END_STONE));
+
+    public static final Block CHERRY_FRUIT_LEAVES = registerBlock("cherry_fruit_leaves",
+            new CustomCherryLeaves(FabricBlockSettings.copyOf(Blocks.CHERRY_LEAVES)));
 
     public static final Block SILT = registerBlock("silt_block",
             new ColoredFallingBlock(new ColorCode(14406560), AbstractBlock.Settings.copy(Blocks.SAND)));

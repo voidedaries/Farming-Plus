@@ -5,8 +5,6 @@ import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -20,6 +18,7 @@ import net.voidedaries.farmingplus.block.entity.ModBlockEntities;
 import net.voidedaries.farmingplus.block.entity.renderer.CrushingTubBlockEntityRenderer;
 import net.voidedaries.farmingplus.client.SaturationHudOverlay;
 import net.voidedaries.farmingplus.effect.ModEffects;
+import net.voidedaries.farmingplus.fluid.ModFluidRenderHandlers;
 import net.voidedaries.farmingplus.fluid.ModFluids;
 import net.voidedaries.farmingplus.networking.ModMessages;
 import net.voidedaries.farmingplus.screen.BottlerScreen;
@@ -48,14 +47,6 @@ public class FarmingPlusClient implements ClientModInitializer {
             }
         });
 
-        //Block Colour Hue
-        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
-            if (world != null && pos != null) {
-                return BiomeColors.getGrassColor(world, pos);
-            }
-            return 0xFFFFFF;
-        }, ModBlocks.RED_GRAPE_VINE, ModBlocks.BLUE_GRAPE_VINE, ModBlocks.WHITE_GRAPE_VINE);
-
         //Hud Overlays
         HudRenderCallback.EVENT.register(new SaturationHudOverlay());
 
@@ -68,52 +59,37 @@ public class FarmingPlusClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntities.CRUSHING_TUB_BLOCK_ENTITY, CrushingTubBlockEntityRenderer::new);
 
-        //Grape Fluids
+        //Biome Colour Hue
+        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+            if (world != null && pos != null) {
+                return BiomeColors.getGrassColor(world, pos);
+            }
+            return 0xFFFFFF;
+        }, ModBlocks.RED_GRAPE_VINE, ModBlocks.BLUE_GRAPE_VINE, ModBlocks.WHITE_GRAPE_VINE);
 
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_RED_GRAPE_FLUID, ModFluids.FLOWING_RED_GRAPE_FLUID,
-                new SimpleFluidRenderHandler(
-                        new Identifier("minecraft:block/water_still"),
-                        new Identifier("minecraft:block/water_flow"),
-                        0xAA2B35
-                ));
+        ModFluidRenderHandlers.registerFluidRenders();
 
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_BLUE_GRAPE_FLUID, ModFluids.FLOWING_BLUE_GRAPE_FLUID,
-                new SimpleFluidRenderHandler(
-                        new Identifier("minecraft:block/water_still"),
-                        new Identifier("minecraft:block/water_flow"),
-                        0x3E77A3
-                ));
+        //region Solids
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
+                ModFluids.STILL_RED_GRAPE_FLUID, ModFluids.FLOWING_RED_GRAPE_FLUID);
 
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_WHITE_GRAPE_FLUID, ModFluids.FLOWING_WHITE_GRAPE_FLUID,
-                new SimpleFluidRenderHandler(
-                        new Identifier("minecraft:block/water_still"),
-                        new Identifier("minecraft:block/water_flow"),
-                        0xC9EFBF
-                ));
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
+                ModFluids.STILL_BLUE_GRAPE_FLUID, ModFluids.FLOWING_BLUE_GRAPE_FLUID);
 
-        //Fermented Wines
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_RED_FERMENTED_WINE, ModFluids.FLOWING_RED_FERMENTED_WINE,
-                new SimpleFluidRenderHandler(
-                        new Identifier("minecraft:block/water_still"),
-                        new Identifier("minecraft:block/water_flow"),
-                        0x8B0000
-                ));
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
+                ModFluids.STILL_WHITE_GRAPE_FLUID, ModFluids.FLOWING_WHITE_GRAPE_FLUID);
 
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_BLUE_FERMENTED_WINE, ModFluids.FLOWING_BLUE_FERMENTED_WINE,
-                new SimpleFluidRenderHandler(
-                        new Identifier("minecraft:block/water_still"),
-                        new Identifier("minecraft:block/water_flow"),
-                        0x1831A0
-                ));
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
+                ModFluids.STILL_RED_FERMENTED_WINE, ModFluids.FLOWING_RED_FERMENTED_WINE);
 
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_WHITE_FERMENTED_WINE, ModFluids.FLOWING_WHITE_FERMENTED_WINE,
-                new SimpleFluidRenderHandler(
-                        new Identifier("minecraft:block/water_still"),
-                        new Identifier("minecraft:block/water_flow"),
-                        0x7BED7F
-                ));
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
+                ModFluids.STILL_BLUE_FERMENTED_WINE, ModFluids.FLOWING_BLUE_FERMENTED_WINE);
 
-        //Grape Fluids
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
+                ModFluids.STILL_WHITE_FERMENTED_WINE, ModFluids.FLOWING_WHITE_FERMENTED_WINE);
+        //endregion
+
+        //region Translucency
         BlockRenderLayerMap.INSTANCE.putFluids(
                 RenderLayer.getTranslucent(),
                 ModFluids.STILL_RED_GRAPE_FLUID,
@@ -124,26 +100,6 @@ public class FarmingPlusClient implements ClientModInitializer {
                 ModFluids.FLOWING_WHITE_GRAPE_FLUID
         );
 
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
-                ModFluids.STILL_RED_GRAPE_FLUID, ModFluids.FLOWING_RED_GRAPE_FLUID);
-
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
-                ModFluids.STILL_BLUE_GRAPE_FLUID, ModFluids.FLOWING_BLUE_GRAPE_FLUID);
-
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
-                ModFluids.STILL_WHITE_GRAPE_FLUID, ModFluids.FLOWING_WHITE_GRAPE_FLUID);
-
-        //Fermented Wines
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
-                ModFluids.STILL_RED_FERMENTED_WINE, ModFluids.FLOWING_RED_FERMENTED_WINE);
-
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
-                ModFluids.STILL_BLUE_FERMENTED_WINE, ModFluids.FLOWING_BLUE_FERMENTED_WINE);
-
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(),
-                ModFluids.STILL_WHITE_FERMENTED_WINE, ModFluids.FLOWING_WHITE_FERMENTED_WINE);
-
-        //Translucency
         BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_RED_GRAPE_FLUID, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_RED_GRAPE_FLUID, RenderLayer.getTranslucent());
 
@@ -161,12 +117,16 @@ public class FarmingPlusClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.STILL_WHITE_FERMENTED_WINE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putFluid(ModFluids.FLOWING_WHITE_FERMENTED_WINE, RenderLayer.getTranslucent());
+        //endregion
 
-        //Cutouts
+        //region Cutouts
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BOTTLER, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CHERRY_FRUIT_LEAVES, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RED_GRAPE_VINE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BLUE_GRAPE_VINE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_GRAPE_VINE, RenderLayer.getCutout());
+        //endregion
     }
 }

@@ -1,0 +1,25 @@
+{
+  "elements": [
+    {
+      "faces": {
+        "up": {
+          "texture": "#inside"
+        }
+      },
+      "from": [
+        2,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        11,
+        14
+      ]
+    }
+  ],
+  "textures": {
+    "inside": "farmingplus:block/void_composter_compost",
+    "particle": "farmingplus:block/void_composter_compost"
+  }
+}

@@ -1,6 +1,7 @@
 package net.voidedaries.farmingplus.util;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
@@ -41,6 +42,14 @@ public class ModTags {
         @SuppressWarnings("SameParameterValue")
         private static TagKey<Fluid> createTag(String name) {
             return TagKey.of(RegistryKeys.FLUID, new Identifier(FarmingPlus.MOD_ID, name));
+        }
+    }
+
+    public static class Entities {
+        public static final TagKey<EntityType<?>> IS_VEHICLE = createTag("is_vehicle");
+
+        private static TagKey<EntityType<?>> createTag(String name) {
+            return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(FarmingPlus.MOD_ID, name));
         }
     }
 

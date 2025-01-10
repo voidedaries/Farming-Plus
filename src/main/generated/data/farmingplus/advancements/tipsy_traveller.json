@@ -1,0 +1,44 @@
+{
+  "criteria": {
+    "effect_and_vehicle": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#farmingplus:is_vehicle"
+            }
+          }
+        ],
+        "item": {},
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "effects": {
+                "farmingplus:intoxication": {}
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "background": "farmingplus:textures/block/loam_block.png",
+    "description": "Under the influence and still trying to drive. Good luck!",
+    "icon": {
+      "item": "farmingplus:red_wine"
+    },
+    "title": "Tipsy Traveller"
+  },
+  "requirements": [
+    [
+      "effect_and_vehicle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

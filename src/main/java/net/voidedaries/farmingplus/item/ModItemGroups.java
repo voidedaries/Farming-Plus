@@ -59,6 +59,11 @@ public class ModItemGroups {
                         entries.add(ModItems.RED_GRAPES);
                         entries.add(ModItems.WHITE_GRAPES);
 
+                        //CHERRIES
+                        entries.add(ModItems.CHERRIES);
+                        entries.add(ModBlocks.CHERRY_FRUIT_LEAVES);
+                        entries.add(ModItems.GOLDEN_CHERRIES);
+
                         //GRAPE FLUIDS
                         entries.add(ModFluids.BLUE_GRAPE_FLUID_BUCKET);
                         entries.add(ModFluids.RED_GRAPE_FLUID_BUCKET);
